@@ -1,7 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux';
 
-import '../styles/search-bar.scss'
+import '../styles/search-bar.css'
 
 class SearchBar extends React.Component {
   constructor (props) {
@@ -17,13 +18,15 @@ class SearchBar extends React.Component {
   }
   render () {
     const nbFields = this.props.fields.length
-    const colspan = nbFields < 2
+    const nbNewFields = this.props.newFields.length
+    const nbFieldsTotal = nbFields + nbNewFields
+    const colspan = nbFieldsTotal < 1
       ? 1
-      : nbFields - 1
+      : nbFieldsTotal
     const options = (
-      <td className="options">
+      <td className="options action-col">
         <input id="advancedSearch" type="checkbox" onChange={this.onChange} />
-        <label htmlFor="advancedSearch">advanced</label>
+        <label htmlFor="advancedSearch"> advanced</label>
       </td>
     )
     const simple = (
@@ -38,20 +41,32 @@ class SearchBar extends React.Component {
       <tr className="search-bar">
         {this.props.fields.map((field) => {
           return (
-            <td key={field}></td>
+            <td key={field}>
+              <input type="text" />
+            </td>
+          )
+        })}
+        {this.props.newFields.map((field, idx) => {
+          return (
+            <td key={field || idx}>
+              <input type="text" readOnly="readonly" />
+            </td>
           )
         })}
         {options}
       </tr>
     )
 
-    return this.state.advanced ? advancedSearch : simple
+    return this.props.advancedSearch ? advancedSearch : simple
   }
 }
 
 SearchBar.propTypes = {
-  fields: PropTypes.array,
-  advanced: PropTypes.bool
+  dispatch: PropTypes.func.isRequired,
+  nbNewFields: PropTypes.number.isRequired,
+  fields: PropTypes.array.isRequired,
+  newFields: PropTypes.array.isRequired,
+  advancedSearch: PropTypes.bool.isRequired
 }
 
-module.exports = exports = SearchBar
+module.exports = exports = connect()(SearchBar)

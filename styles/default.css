@@ -33,6 +33,7 @@ table {
   border-collapse: collapse;
 }
 
-td {
+th, td {
+  border: 1px solid red !important;
   padding: 0;
 }

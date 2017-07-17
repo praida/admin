@@ -1,8 +1,8 @@
-import { all } from 'redux-saga/effects';
+import { all, takeLatest } from 'redux-saga/effects'
+import { testCredentials } from './api'
 
-/**
- * Main saga generator
- */
 export function* sagas() {
-  yield all([]);
+  yield all([
+    takeLatest('testCredentials', testCredentials)
+  ]);
 }

@@ -23,8 +23,8 @@ class SearchResults extends React.Component {
 }
 
 SearchResults.propTypes = {
-  fields: PropTypes.array,
-  results: PropTypes.array
+  fields: PropTypes.array.isRequired,
+  results: PropTypes.array.isRequired
 }
 
 module.exports = exports = SearchResults

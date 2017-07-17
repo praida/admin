@@ -6,7 +6,7 @@ import Headers from './Headers'
 import SearchResults from './SearchResults'
 import NewRecord from './NewRecord'
 
-import '../styles/record-browser.scss'
+import '../styles/record-browser.css'
 
 class RecordBrowser extends React.Component {
   render () {
@@ -14,9 +14,13 @@ class RecordBrowser extends React.Component {
       <thead>
         <SearchBar
           fields={this.props.fields}
+          nbNewFields={this.props.nbNewFields}
+          newFields={this.props.newFields}
+          advancedSearch={this.props.advancedSearch}
         />
         <Headers
           fields={this.props.fields}
+          nbNewFields={this.props.nbNewFields}
         />
       </thead>
     )
@@ -25,10 +29,14 @@ class RecordBrowser extends React.Component {
         {head}
         <SearchResults
           fields={this.props.fields}
+          nbNewFields={this.props.nbNewFields}
+          newFields={this.props.newFields}
           results={this.props.results}
         />
         <NewRecord
           fields={this.props.fields}
+          nbNewFields={this.props.nbNewFields}
+          newFields={this.props.newFields}
         />
       </table>
     )
@@ -36,8 +44,15 @@ class RecordBrowser extends React.Component {
 }
 
 RecordBrowser.propTypes = {
-  fields: PropTypes.array,
-  results: PropTypes.array
+  advancedSearch: PropTypes.bool.isRequired,
+  fields: PropTypes.array.isRequired,
+  nbNewFields: PropTypes.number.isRequired,
+  newFields: PropTypes.array.isRequired,
+  results: PropTypes.array.isRequired,
+  add: PropTypes.array.isRequired,
+  edit: PropTypes.array.isRequired,
+  remove: PropTypes.array.isRequired,
+  reviewing: PropTypes.bool.isRequired
 }
 
 module.exports = exports = RecordBrowser

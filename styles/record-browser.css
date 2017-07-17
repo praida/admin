@@ -1,0 +1,30 @@
+@import './vars.css';
+
+.record-browser {
+  width: 100%;
+}
+.record-browser th input {
+  width: 100%;
+  padding: var(--padding);
+}
+
+.first-col, .mid-col, .last-col {
+  border-style: solid;
+  border-color: black;
+}
+.first-col {
+  border-width: 0 0 0 1px;
+}
+.mid-col {
+  border-width: 0 0 0 1px;
+}
+.last-col {
+  border-width: 0 1px 0 0;
+}
+.action-col {
+  padding: 0.5em 0.7em;
+}
+
+.action-icon {
+  cursor: pointer;
+}

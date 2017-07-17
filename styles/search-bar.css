@@ -1,0 +1,6 @@
+@import './vars.css';
+
+.search-bar input[type=text] {
+  width: 100%;
+  padding: var(--padding);
+}
