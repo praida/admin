@@ -54,8 +54,11 @@
     "webpack-dev-server": "2.5.0"
   },
   "dependencies": {
+    "axios": "^0.16.2",
     "babel-polyfill": "6.23.0",
     "es6-promise": "4.1.1",
+    "lodash.clonedeep": "^4.5.0",
+    "lodash.get": "^4.4.2",
     "prop-types": "15.5.10",
     "react": "15.6.1",
     "react-dom": "15.6.1",

@@ -41,7 +41,7 @@ class SearchBar extends React.Component {
       <tr className="search-bar">
         {this.props.fields.map((field) => {
           return (
-            <td key={field}>
+            <td key={field._id}>
               <input type="text" />
             </td>
           )

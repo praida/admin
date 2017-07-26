@@ -8,8 +8,18 @@ class Headers extends React.Component {
   constructor (props) {
     super(props)
 
+    this.state = {
+      lastNbNewFields: this.props.nbNewFields
+    }
+
     this.addCol = this.addCol.bind(this)
     this.changeNewField = this.changeNewField.bind(this)
+  }
+  componentDidUpdate () {
+    if (this.props.nbNewFields > this.state.lastNbNewFields) {
+      this.state.lastNewCol.focus()
+    }
+    this.state.lastNbNewFields = this.props.nbNewFields
   }
   addCol () {
     this.props.dispatch({
@@ -25,6 +35,15 @@ class Headers extends React.Component {
       })
     }
   }
+  changeOldField (field) {
+    return (event) => {
+      this.props.dispatch({
+        type: 'editField',
+        field,
+        value: event.target.value
+      })
+    }
+  }
   render () {
     const nbFields = this.props.fields.length
     const nbFieldsTotal = nbFields + this.props.nbNewFields
@@ -32,7 +51,9 @@ class Headers extends React.Component {
     for (let i = 0; i < this.props.nbNewFields; i += 1) {
       newFields.push(
         <th key={`newField_${i}`}>
-          <input type="text" onChange={this.changeNewField(i)} />
+          <input type="text" onChange={this.changeNewField(i)} ref={(element) => {
+            this.state.lastNewCol = element
+          }} />
         </th>
       )
     }
@@ -40,8 +61,8 @@ class Headers extends React.Component {
       <tr>
         {this.props.fields.map((field, idx) => {
           return (
-            <th key={field} className={getColClassName(nbFieldsTotal, idx)}>
-              <input type="text" value={field} />
+            <th key={field._id} className={getColClassName(nbFieldsTotal, idx)}>
+              <input type="text" defaultValue={field.name} placeholder="Delete" onChange={this.changeOldField(field)} />
             </th>
           )
         })}

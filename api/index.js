@@ -1,29 +1,68 @@
-import { call, put } from 'redux-saga/effects'
-import actions from './actions'
+import axios from 'axios'
+
+const url = (route) => {
+  return `http://localhost:3333/${route}`
+}
+
+const auth = (creds) => {
+  return {
+    username: creds.user,
+    password: creds.pass
+  }
+}
 
 module.exports = exports = {
-  getVersions: function* getVersions (action) {
-    try {
-      const versions = yield call(actions.getVersions(action))
-      console.log('versions', versions)
-      yield put({
-        type: 'saveVersions',
-        versions
+  testCredentials: (dispatch, creds) => {
+    dispatch({ type: 'loggingIn', value: true })
+    return axios({
+      url: url('testCredentials'),
+      auth: auth(creds),
+    })
+      .then((res) => {
+        dispatch({ type: 'loggedIn', creds })
+      }, (reason) => {
+        dispatch({ type: 'loginFailed', creds, reason })
       })
-    } catch (err) {
-      if (err.json) {
-        const error = yield err.json;
-        yield put({
-          type: 'failGetVersions',
-          err: error,
-          status: err.status
-        })
-      } else {
-        yield put({
-          type: 'failGetVersions',
-          err
-        })
-      }
-    }
+      .then(() => {
+        dispatch({ type: 'loggingIn', value: false })
+      })
+  },
+
+  getFields: (dispatch) => {
+    const credsStr = sessionStorage.getItem('creds')
+    const creds = JSON.parse(credsStr)
+    dispatch({ type: 'gettingFields', value: true })
+    return axios({
+      url: url('getFields'),
+      auth: auth(creds)
+    })
+      .then((fields) => {
+        dispatch({ type: 'gotFields', creds, fields })
+      }, (reason) => {
+        dispatch({ type: 'getFieldsFailure', creds, reason })
+      })
+      .then(() => {
+        dispatch({ type: 'gettingFields', value: false })
+      })
+  },
+
+  saveChanges: (dispatch, changes) => {
+    const credsStr = sessionStorage.getItem('creds')
+    const creds = JSON.parse(credsStr)
+    dispatch({ type: 'savingChanges', value: true })
+    return axios({
+      method: 'post',
+      url: url('saveChanges'),
+      auth: auth(creds),
+      data: changes
+    })
+      .then(() => {
+        dispatch({ type: 'savedChanges', creds })
+      }, (reason) => {
+        dispatch({ type: 'saveChangesFailed', creds, reason })
+      })
+      .then(() => {
+        dispatch({ type: 'savingChanges', value: false })
+      })
   }
 }

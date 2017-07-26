@@ -10,7 +10,7 @@ const Review = (props) => (
         {props.fields.map((field, position) => {
           return (
             <th key={position}>
-              {field}
+              {field.name}
             </th>
           )
         })}

@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux';
 
-import onEnter from '../helpers/onEnter.js'
+import api from '../api'
 
 import '../styles/action-bar.css'
 
@@ -23,7 +23,7 @@ class ActionBar extends React.Component {
   undoAllButton () {
     return (
       <li>
-        <button onClick={this.undoAll} onKeyPress={onEnter(this.undoAll)}>Undo</button>
+        <button onClick={this.undoAll}>Revert</button>
       </li>
     )
   }
@@ -59,23 +59,28 @@ class ActionBar extends React.Component {
   reviewChangesButton () {
     return (
       <li>
-        <button onClick={this.reviewChanges} onKeyPress={onEnter(this.reviewChanges)}>Review Changes</button>
+        <button onClick={this.reviewChanges}>Review Changes</button>
       </li>
     )
   }
 
   save () {
-    return this.dispatch({
+    api.saveChanges(this.props.dispatch, {
       add: this.props.add,
       edit: this.props.edit,
-      remove: this.props.remove
+      remove: this.props.remove,
+      newFields: this.props.newFields,
+      editedFields: this.props.editedFields
     })
+      .then(() => {
+        return api.getFields(this.props.dispatch)
+      })
   }
 
   saveButton () {
     return (
       <li>
-        <button onClick={this.save} onKeyPress={onEnter(this.save)}>Save</button>
+        <button onClick={this.save}>Save</button>
       </li>
     )
   }
@@ -103,6 +108,7 @@ class ActionBar extends React.Component {
 ActionBar.propTypes = {
   dispatch: PropTypes.func.isRequired,
   newFields: PropTypes.array.isRequired,
+  editedFields: PropTypes.object.isRequired,
   add: PropTypes.array.isRequired,
   edit: PropTypes.array.isRequired,
   remove: PropTypes.array.isRequired,

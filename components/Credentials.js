@@ -2,6 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
+import api from '../api'
+
 import '../styles/credentials.css'
 
 class Credentials extends React.Component {
@@ -11,6 +13,10 @@ class Credentials extends React.Component {
     this.userChanged = this.userChanged.bind(this)
     this.passChanged = this.passChanged.bind(this)
     this.testCredentials = this.testCredentials.bind(this)
+
+    if (this.props.user && this.props.pass) {
+      this.testCredentials()
+    }
   }
 
   userChanged (event) {
@@ -28,18 +34,18 @@ class Credentials extends React.Component {
   }
 
   testCredentials () {
-    this.props.dispatch({
-      type: 'testCredentials',
+    const creds = {
       user: this.props.user,
       pass: this.props.pass
-    })
+    }
+    return api.testCredentials(this.props.dispatch, creds)
   }
 
   render () {
     return (
       <ul className="credentials">
-        <li><input type="text" placeholder="username" onChange={this.userChanged} /></li>
-        <li><input type="password" placeholder="password" onChange={this.passChanged} /></li>
+        <li><input type="text" placeholder="username" onChange={this.userChanged} defaultValue={this.props.user} /></li>
+        <li><input type="password" placeholder="password" onChange={this.passChanged} defaultValue={this.props.pass} /></li>
         <li><button onClick={this.testCredentials}>Test credentials</button></li>
       </ul>
     )
@@ -52,11 +58,4 @@ Credentials.propTypes = {
   pass: PropTypes.string.isRequired
 }
 
-function mapStateToProps (state) {
-  return {
-    user: state.app.user,
-    pass: state.app.pass
-  }
-}
-
-module.exports = exports = connect(mapStateToProps)(Credentials)
+module.exports = exports = connect()(Credentials)
