@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const url = (route) => {
-  return `http://localhost:3333/${route}`
+  return `${process.env.API_URL}/${route}`
 }
 
 const auth = (creds) => {

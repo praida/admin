@@ -9,7 +9,7 @@ module.exports = {
     './index.js'
   ],
   output: {
-    path: '/',
+    path: path.join(__dirname, './dist'),
     filename: '[hash].min.js'
   },
   module: {
@@ -44,6 +44,7 @@ module.exports = {
       'process.env': {
         NODE_ENV: JSON.stringify(process.env.NODE_ENV || 'dev'),
         VERSION: JSON.stringify(pkg.version),
+        API_URL: JSON.stringify(process.env.PRAIDA_API_URL)
       },
     }),
     new HtmlWebpackPlugin({

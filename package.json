@@ -6,8 +6,9 @@
   "scripts": {
     "lintCss": "stylelint ./styles/**/*.css",
     "lintJs": "eslint .",
-    "start": "webpack-dev-server --config ./webpack.config.js --open",
-    "build": "webpack --config ./webpack.config.js --progress --profile --colors",
+    "start": "PRAIDA_API_URL=http://localhost:3333 webpack-dev-server --config ./webpack.config.js --open",
+    "remote": "PRAIDA_API_URL=https://backend-meugczfjat.now.sh webpack-dev-server --config ./webpack.config.js --open",
+    "build": "PRAIDA_API_URL=https://backend-meugczfjat.now.sh webpack --config ./webpack.config.js --progress --profile --colors",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

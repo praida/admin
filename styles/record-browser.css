@@ -8,19 +8,19 @@
   padding: var(--padding);
 }
 
-.first-col, .mid-col, .last-col {
+/*.first-col, .mid-col, .last-col {
   border-style: solid;
   border-color: black;
-}
-.first-col {
+}*/
+/*.first-col {
   border-width: 0 0 0 1px;
 }
 .mid-col {
   border-width: 0 0 0 1px;
 }
 .last-col {
-  border-width: 0 1px 0 0;
-}
+  border-width: 0 1px 0 1px;
+}*/
 .action-col {
   padding: 0.5em 0.7em;
 }
