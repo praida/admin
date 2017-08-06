@@ -48,7 +48,7 @@ module.exports = {
       },
     }),
     new HtmlWebpackPlugin({
-      template: 'index.html',
+      template: 'index.template.html',
     }),
     new webpack.HotModuleReplacementPlugin(),
   ],
