@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 
 import getColClassName from '../helpers/getColClassName'
 
+import '../styles/headers.css'
+
 class Headers extends React.Component {
   constructor (props) {
     super(props)
@@ -47,25 +49,41 @@ class Headers extends React.Component {
   render () {
     const nbFields = this.props.fields.length
     const nbFieldsTotal = nbFields + this.props.nbNewFields
+    const oldFields = this.props.fields.map((field, idx) => {
+      return (
+        <th
+          key={field._id}
+          className={`oldField ${getColClassName(nbFieldsTotal, idx)}`}
+        >
+          <input
+            type="text"
+            defaultValue={field.name}
+            placeholder="Delete"
+            onChange={this.changeOldField(field)}
+          />
+        </th>
+      )
+    })
     const newFields = []
     for (let i = 0; i < this.props.nbNewFields; i += 1) {
       newFields.push(
-        <th key={`newField_${i}`}>
-          <input type="text" onChange={this.changeNewField(i)} ref={(element) => {
-            this.state.lastNewCol = element
-          }} />
+        <th
+          key={`newField_${i}`}
+          className={`newField ${getColClassName(nbFieldsTotal, nbFields + i)}`}
+        >
+          <input
+            type="text"
+            onChange={this.changeNewField(i)}
+            ref={(element) => {
+              this.state.lastNewCol = element
+            }}
+          />
         </th>
       )
     }
     return (
       <tr>
-        {this.props.fields.map((field, idx) => {
-          return (
-            <th key={field._id} className={getColClassName(nbFieldsTotal, idx)}>
-              <input type="text" defaultValue={field.name} placeholder="Delete" onChange={this.changeOldField(field)} />
-            </th>
-          )
-        })}
+        {oldFields}
         {newFields}
         <td className="action-col">
           <span className="action-icon" onClick={this.addCol}>+</span>

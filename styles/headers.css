@@ -1,0 +1,12 @@
+.record-browser th input {
+  font-weight: bold;
+  text-align: center;
+}
+
+.newField input {
+  background: #080;
+}
+
+.oldField input {
+
+}

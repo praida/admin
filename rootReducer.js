@@ -70,11 +70,23 @@ const appReducer = (state = initialState, action) => {
       const field = action.field
       const id = field._id
       console.log('typeof id', typeof id, id)
-      newState.editedFields[id] = field
-      newState.editedFields[id].name = action.value
+      const value = action.value
+      if (value === '') {
+        newState.deletedFields[id] = field
+        delete newState.editedFields[id]
+      } else {
+        newState.editedFields[id] = field
+        newState.editedFields[id].name = action.value
+      }
       break
     }
     case 'undoAll':
+      newState.nbNewFields = 0
+      newState.newFields = []
+      newState.add = []
+      newState.edit = []
+      newState.remove = []
+    case 'savedChanges':
       newState.nbNewFields = 0
       newState.newFields = []
       newState.add = []

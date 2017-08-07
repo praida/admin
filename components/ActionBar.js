@@ -70,7 +70,8 @@ class ActionBar extends React.Component {
       edit: this.props.edit,
       remove: this.props.remove,
       newFields: this.props.newFields,
-      editedFields: this.props.editedFields
+      editedFields: this.props.editedFields,
+      deletedFields: this.props.deletedFields,
     })
       .then(() => {
         return api.getFields(this.props.dispatch)
@@ -109,6 +110,7 @@ ActionBar.propTypes = {
   dispatch: PropTypes.func.isRequired,
   newFields: PropTypes.array.isRequired,
   editedFields: PropTypes.object.isRequired,
+  deletedFields: PropTypes.object.isRequired,
   add: PropTypes.array.isRequired,
   edit: PropTypes.array.isRequired,
   remove: PropTypes.array.isRequired,

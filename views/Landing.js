@@ -63,6 +63,7 @@ class Landing extends React.Component {
               nbNewFields={this.props.nbNewFields}
               newFields={this.props.newFields}
               editedFields={this.props.editedFields}
+              deletedFields={this.props.deletedFields}
               add={this.props.add}
               edit={this.props.edit}
               remove={this.props.remove}
@@ -103,6 +104,7 @@ const propsFromState = {
   nbNewFields: PropTypes.number.isRequired,
   newFields: PropTypes.array.isRequired,
   editedFields: PropTypes.object.isRequired,
+  deletedFields: PropTypes.object.isRequired,
 
   // - records
   add: PropTypes.array.isRequired,

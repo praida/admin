@@ -23,6 +23,7 @@ const initialState = {
   nbNewFields: 0,
   newFields: [],
   editedFields: {},
+  deletedFields: {},
   add: [],
   edit: [],
   remove: []
