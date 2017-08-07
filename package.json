@@ -7,8 +7,8 @@
     "lintCss": "stylelint ./styles/**/*.css",
     "lintJs": "eslint .",
     "start": "PRAIDA_API_URL=http://localhost:3333 webpack-dev-server --config ./webpack.config.js --open",
-    "remote": "PRAIDA_API_URL=https://backend-meugczfjat.now.sh webpack-dev-server --config ./webpack.config.js --open",
-    "build": "PRAIDA_API_URL=https://backend-meugczfjat.now.sh webpack --config ./webpack.config.js --progress --profile --colors",
+    "remote": "PRAIDA_API_URL=https://backend-mwmqifiplr.now.sh webpack-dev-server --config ./webpack.config.js --open",
+    "build": "PRAIDA_API_URL=https://backend-mwmqifiplr.now.sh webpack --config ./webpack.config.js --progress --profile --colors",
     "deploy": "git subtree push --prefix dist origin gh-pages",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
