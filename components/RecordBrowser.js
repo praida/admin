@@ -29,14 +29,16 @@ class RecordBrowser extends React.Component {
         {head}
         <SearchResults
           fields={this.props.fields}
+          records={this.props.records}
           nbNewFields={this.props.nbNewFields}
           newFields={this.props.newFields}
-          results={this.props.results}
+          recordsAt={this.props.recordsAt}
         />
         <NewRecord
           fields={this.props.fields}
           nbNewFields={this.props.nbNewFields}
           newFields={this.props.newFields}
+          add={this.props.add}
         />
       </table>
     )
@@ -44,13 +46,14 @@ class RecordBrowser extends React.Component {
 }
 
 RecordBrowser.propTypes = {
+  records: PropTypes.array.isRequired,
+  recordsAt: PropTypes.number.isRequired,
   advancedSearch: PropTypes.bool.isRequired,
   fields: PropTypes.array.isRequired,
   nbNewFields: PropTypes.number.isRequired,
   newFields: PropTypes.array.isRequired,
-  results: PropTypes.array.isRequired,
   add: PropTypes.array.isRequired,
-  edit: PropTypes.array.isRequired,
+  edit: PropTypes.object.isRequired,
   remove: PropTypes.array.isRequired,
   reviewing: PropTypes.bool.isRequired
 }

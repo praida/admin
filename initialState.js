@@ -15,9 +15,14 @@ const initialState = {
   fieldsAt: 0,
   fields: [],
 
+  // Records
+  gettingRecords: false,
+  getRecordsFailed: false,
+  recordsAt: 0,
+  records: [],
+
   // Search
   advancedSearch: false,
-  results: [],
 
   // Edit
   nbNewFields: 0,
@@ -25,7 +30,7 @@ const initialState = {
   editedFields: {},
   deletedFields: {},
   add: [],
-  edit: [],
+  edit: {},
   remove: []
 }
 

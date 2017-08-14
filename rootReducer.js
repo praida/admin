@@ -53,6 +53,21 @@ const appReducer = (state = initialState, action) => {
       newState.getFieldsFailed = true
       break;
 
+    // Records
+    case 'gettingRecords':
+      newState.gettingRecords = action.value
+      break
+    case 'gotRecords':
+      newState.gettingRecords = false
+      newState.getRecordsFailed = false
+      newState.recordsAt = Date.now()
+      newState.records = action.records.data
+      break
+    case 'getRecordsFailure':
+      newState.gettingRecords = false
+      newState.getRecordsFailed = true
+      break
+
     // Search
     case 'setAdvancedSearch':
       newState.advancedSearch = action.value
@@ -63,13 +78,25 @@ const appReducer = (state = initialState, action) => {
       newState.nbNewFields += 1
       newState.newFields.push('')
       break
+
+    case 'removeRow':
+      newState.remove.push(action.record._id)
+      newState.records = newState.records.map((item) => {
+        if (item._id === action.record._id) {
+          item.isDeleted = true
+        }
+        return item
+      })
+      break
+    case 'removeNewRow':
+      newState.add[action.idx].isDeleted = true
+      break
     case 'changeNewField':
       newState.newFields[action.idx] = action.value
       break
     case 'editField': {
       const field = action.field
       const id = field._id
-      console.log('typeof id', typeof id, id)
       const value = action.value
       if (value === '') {
         newState.deletedFields[id] = field
@@ -80,20 +107,61 @@ const appReducer = (state = initialState, action) => {
       }
       break
     }
+    case 'addNewRecord':
+      newState.add.push({ _id: action.idx })
+      break;
+    case 'editNewRecordOldField': {
+      if (!newState.add[action.rowNb]) {
+        newState.add[action.rowNb] = {}
+      }
+      newState.add[action.rowNb][action.field._id] = action.value
+      break
+    }
+    case 'editNewRecordNewField':
+      if (!newState.add[action.rowNb]) {
+        newState.add[action.rowNb] = {}
+      }
+      if (!newState.add[action.rowNb].newFields) {
+        newState.add[action.rowNb].newFields = []
+      }
+      newState.add[action.rowNb].newFields[action.idx] = action.value
+      break
+    case 'editRecordOldField':
+      if (!newState.edit[action.record._id]) {
+        newState.edit[action.record._id] = {}
+      }
+      newState.edit[action.record._id][action.field._id] = action.value
+      break
+    case 'editRecordNewField':
+
+      if (!newState.edit[action.record._id]) {
+        newState.edit[action.record._id] = {}
+      }
+      if (!newState.edit[action.record._id].newFields) {
+        newState.edit[action.record._id].newFields = []
+      }
+      newState.edit[action.record._id].newFields[action.idx] = action.value
+      break
     case 'undoAll':
       newState.nbNewFields = 0
       newState.newFields = []
       newState.add = []
-      newState.edit = []
+      newState.edit = {}
       newState.remove = []
+      newState.records = newState.records.map((item) => {
+        if (item.isDeleted) {
+          delete item.isDeleted
+        }
+        return item
+      })
     case 'savedChanges':
       newState.nbNewFields = 0
       newState.newFields = []
       newState.add = []
-      newState.edit = []
+      newState.edit = {}
       newState.remove = []
-
     default:
+      console.warn('Unhandled action')
       break
   }
   global.state = newState

@@ -44,20 +44,20 @@ const Review = (props) => (
           </tr>
         )
       })}
-      {props.edit.map((item, idx) => {
+      {Object.keys(props.edit).map((key, idx) => {
         return (
           <tr key={idx} className="review-edit">
             {props.fields.map((field, position) => {
               return (
                 <td key={position}>
-                  {item[field]}
+                  {props.edit[key][field._id]}
                 </td>
               )
             })}
             {props.newFields.map((field, position) => {
               return (
                 <td key={position}>
-                  {item[field]}
+                  {props.edit[key][field._id]}
                 </td>
               )
             })}
@@ -67,7 +67,7 @@ const Review = (props) => (
       {props.remove.map((item, idx) => {
         return (
           <tr key={idx} className="review-remove">
-            {propx.fields.map((field, position) => {
+            {props.fields.map((field, position) => {
               return (
                 <td key={position}>
                   {item[field]}
@@ -86,7 +86,7 @@ Review.propTypes = {
   nbNewFields: PropTypes.number.isRequired,
   newFields: PropTypes.array.isRequired,
   add: PropTypes.array.isRequired,
-  edit: PropTypes.array.isRequired,
+  edit: PropTypes.object.isRequired,
   remove: PropTypes.array.isRequired,
   reviewing: PropTypes.bool.isRequired
 }

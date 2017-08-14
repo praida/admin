@@ -11,12 +11,16 @@ import ActionBar from '../components/ActionBar'
 
 class Landing extends React.Component {
   componentDidUpdate () {
-    if (!this.props.fieldsAt
-      && this.props.loggedIn
+    if (this.props.loggedIn
+      && !this.props.fieldsAt
       && !this.props.gettingFields
       && !this.props.getFieldsFailed
+      && !this.props.recordsAt
+      && !this.props.gettingRecords
+      && !this.props.getRecordsFailed
     ) {
       api.getFields(this.props.dispatch)
+      api.getRecords(this.props.dispatch)
     }
   }
 
@@ -32,9 +36,10 @@ class Landing extends React.Component {
             <RecordBrowser
               advancedSearch={this.props.advancedSearch}
               fields={this.props.fields}
+              records={this.props.records}
+              recordsAt={this.props.recordsAt}
               nbNewFields={this.props.nbNewFields}
               newFields={this.props.newFields}
-              results={this.props.results}
               add={this.props.add}
               edit={this.props.edit}
               remove={this.props.remove}
@@ -94,9 +99,14 @@ const propsFromState = {
   fieldsAt: PropTypes.number.isRequired,
   fields: PropTypes.array.isRequired,
 
+  // Records
+  gettingRecords: PropTypes.bool.isRequired,
+  getRecordsFailed: PropTypes.bool.isRequired,
+  recordsAt: PropTypes.number.isRequired,
+  records: PropTypes.array.isRequired,
+
   // Search
   advancedSearch: PropTypes.bool.isRequired,
-  results: PropTypes.array.isRequired,
 
   // Edits
 
@@ -108,7 +118,7 @@ const propsFromState = {
 
   // - records
   add: PropTypes.array.isRequired,
-  edit: PropTypes.array.isRequired,
+  edit: PropTypes.object.isRequired,
   remove: PropTypes.array.isRequired
 }
 

@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { connect } from 'react-redux';
+import { connect } from 'react-redux'
 
 import getColClassName from '../helpers/getColClassName'
 
@@ -15,6 +15,7 @@ class Headers extends React.Component {
     }
 
     this.addCol = this.addCol.bind(this)
+    this.changeOldField = this.changeOldField.bind(this)
     this.changeNewField = this.changeNewField.bind(this)
   }
   componentDidUpdate () {
@@ -28,20 +29,20 @@ class Headers extends React.Component {
       type: 'addCol'
     })
   }
-  changeNewField (idx) {
-    return (event) => {
-      this.props.dispatch({
-        type: 'changeNewField',
-        idx,
-        value: event.target.value
-      })
-    }
-  }
   changeOldField (field) {
     return (event) => {
       this.props.dispatch({
         type: 'editField',
         field,
+        value: event.target.value
+      })
+    }
+  }
+  changeNewField (idx) {
+    return (event) => {
+      this.props.dispatch({
+        type: 'changeNewField',
+        idx,
         value: event.target.value
       })
     }

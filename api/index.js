@@ -46,10 +46,28 @@ module.exports = exports = {
       })
   },
 
+  getRecords: (dispatch) => {
+    const credsStr = sessionStorage.getItem('creds')
+    const creds = JSON.parse(credsStr)
+    dispatch({ type: 'gettingRecords', value: true })
+    return axios({
+      url: url('getRecords'),
+      auth: auth(creds)
+    })
+      .then((records) => {
+        dispatch({ type: 'gotRecords', creds, records })
+      }, (reason) => {
+        dispatch({ type: 'getRecordsFailure', creds, reason })
+      })
+      .then(() => {
+        dispatch({ type: 'gettingRecords', value: false })
+      })
+  },
+
   saveChanges: (dispatch, changes) => {
     const credsStr = sessionStorage.getItem('creds')
     const creds = JSON.parse(credsStr)
-    dispatch({ type: 'savingChanges', value: true })
+    dispatch({ type: 'savingChanges', value: true, changes })
     return axios({
       method: 'post',
       url: url('saveChanges'),
@@ -58,6 +76,7 @@ module.exports = exports = {
     })
       .then(() => {
         dispatch({ type: 'savedChanges', creds })
+        dispatch({ type: 'undoAll' })
       }, (reason) => {
         dispatch({ type: 'saveChangesFailed', creds, reason })
       })

@@ -30,7 +30,7 @@ class ActionBar extends React.Component {
 
   diffSummary () {
     const more = this.props.add.length
-    const diff = this.props.edit.length
+    const diff = Object.keys(this.props.edit).length
     const less = this.props.remove.length
     const nbNewFields = this.props.newFields.length
     return (
@@ -65,8 +65,9 @@ class ActionBar extends React.Component {
   }
 
   save () {
+    const add = this.props.add.filter(item => !item.isDeleted)
     api.saveChanges(this.props.dispatch, {
-      add: this.props.add,
+      add: add,
       edit: this.props.edit,
       remove: this.props.remove,
       newFields: this.props.newFields,
@@ -74,7 +75,10 @@ class ActionBar extends React.Component {
       deletedFields: this.props.deletedFields,
     })
       .then(() => {
-        return api.getFields(this.props.dispatch)
+        return Promise.all([
+          api.getFields(this.props.dispatch),
+          api.getRecords(this.props.dispatch)
+        ])
       })
   }
 
@@ -112,7 +116,7 @@ ActionBar.propTypes = {
   editedFields: PropTypes.object.isRequired,
   deletedFields: PropTypes.object.isRequired,
   add: PropTypes.array.isRequired,
-  edit: PropTypes.array.isRequired,
+  edit: PropTypes.object.isRequired,
   remove: PropTypes.array.isRequired,
   reviewing: PropTypes.bool.isRequired
 }

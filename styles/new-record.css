@@ -1,0 +1,16 @@
+.newField input {
+  background: #080;
+}
+
+.oldField input {
+
+}
+
+.addNewRecordButton {
+  text-align: center;
+  cursor: pointer;
+}
+
+.addNewRecordButton:hover {
+  background: #eee;
+}
