@@ -9,6 +9,8 @@ import RecordBrowser from '../components/RecordBrowser'
 import Review from '../components/Review'
 import ActionBar from '../components/ActionBar'
 
+import '../styles/wrapper.css'
+
 class Landing extends React.Component {
   componentDidUpdate () {
     if (this.props.loggedIn
@@ -26,42 +28,44 @@ class Landing extends React.Component {
 
   render () {
     return (
-      <div>
+      <div className="wrapper">
         <Credentials
           user={this.props.user}
           pass={this.props.pass}
         />
-        {this.props.loggedIn && this.props.fieldsAt
-          ? (
-            <RecordBrowser
-              advancedSearch={this.props.advancedSearch}
-              fields={this.props.fields}
-              records={this.props.records}
-              recordsAt={this.props.recordsAt}
-              nbNewFields={this.props.nbNewFields}
-              newFields={this.props.newFields}
-              add={this.props.add}
-              edit={this.props.edit}
-              remove={this.props.remove}
-              reviewing={this.props.reviewing}
-            />
-          )
-          : null
-        }
-        {this.props.loggedIn
-          ? (
-            <Review
-              fields={this.props.fields}
-              nbNewFields={this.props.nbNewFields}
-              newFields={this.props.newFields}
-              add={this.props.add}
-              edit={this.props.edit}
-              remove={this.props.remove}
-              reviewing={this.props.reviewing}
-            />
-          )
-          : null
-        }
+        <div className="main">
+          {this.props.loggedIn && this.props.fieldsAt
+            ? (
+              <RecordBrowser
+                advancedSearch={this.props.advancedSearch}
+                fields={this.props.fields}
+                records={this.props.records}
+                recordsAt={this.props.recordsAt}
+                nbNewFields={this.props.nbNewFields}
+                newFields={this.props.newFields}
+                add={this.props.add}
+                edit={this.props.edit}
+                remove={this.props.remove}
+                reviewing={this.props.reviewing}
+              />
+            )
+            : null
+          }
+          {/*this.props.loggedIn
+            ? (
+              <Review
+                fields={this.props.fields}
+                nbNewFields={this.props.nbNewFields}
+                newFields={this.props.newFields}
+                add={this.props.add}
+                edit={this.props.edit}
+                remove={this.props.remove}
+                reviewing={this.props.reviewing}
+              />
+            )
+            : null
+          */}
+        </div>
         {this.props.loggedIn
           ? (
             <ActionBar

@@ -12,12 +12,12 @@ class RecordBrowser extends React.Component {
   render () {
     const head = (
       <thead>
-        <SearchBar
+        {/* <SearchBar
           fields={this.props.fields}
           nbNewFields={this.props.nbNewFields}
           newFields={this.props.newFields}
           advancedSearch={this.props.advancedSearch}
-        />
+        /> */}
         <Headers
           fields={this.props.fields}
           nbNewFields={this.props.nbNewFields}

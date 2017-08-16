@@ -1,0 +1,6 @@
+@import './vars.css';
+
+.main {
+  width: 100%;
+  padding-left: var(--gutter);
+}

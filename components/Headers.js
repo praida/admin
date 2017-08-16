@@ -87,7 +87,7 @@ class Headers extends React.Component {
         {oldFields}
         {newFields}
         <td className="action-col">
-          <span className="action-icon" onClick={this.addCol}>+</span>
+          <span className="action-icon" onClick={this.addCol}>⊕</span>
         </td>
       </tr>
     )

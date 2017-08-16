@@ -23,7 +23,7 @@ class ActionBar extends React.Component {
   undoAllButton () {
     return (
       <li>
-        <button onClick={this.undoAll}>Revert</button>
+        <button onClick={this.undoAll}>Undo</button>
       </li>
     )
   }
@@ -102,8 +102,8 @@ class ActionBar extends React.Component {
     return (
       <ul className={classes.join(' ')}>
         {this.undoAllButton()}
-        {this.diffSummary()}
-        {this.reviewChangesButton()}
+        {/*this.diffSummary()*/}
+        {/*this.reviewChangesButton()*/}
         {this.saveButton()}
       </ul>
     )

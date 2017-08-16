@@ -96,7 +96,7 @@ class NewRecord extends React.Component {
           {makeOldFields(idx)}
           {makeNewFields(idx)}
           <td className="action-col">
-            <span className="action-icon" onClick={this.removeNewRow(idx)}>x</span>
+            <span className="action-icon" onClick={this.removeNewRow(idx)}>⊗</span>
           </td>
         </tr>
       )
@@ -111,7 +111,7 @@ class NewRecord extends React.Component {
             colSpan={nbFieldsTotal}
             onClick={this.addNewRecord}
           >
-            +
+            ⊕
           </td>
         </tr>
       </tbody>

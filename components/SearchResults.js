@@ -83,7 +83,7 @@ class SearchResults extends React.Component {
               {oldFields}
               {newFields}
               <td className="action-col">
-                <span className="action-icon" onClick={this.removeRow(record)}>x</span>
+                <span className="action-icon" onClick={this.removeRow(record)}>⊗</span>
               </td>
             </tr>
           )

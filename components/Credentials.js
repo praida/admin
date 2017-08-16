@@ -46,7 +46,7 @@ class Credentials extends React.Component {
       <ul className="credentials">
         <li><input type="text" placeholder="username" onChange={this.userChanged} defaultValue={this.props.user} /></li>
         <li><input type="password" placeholder="password" onChange={this.passChanged} defaultValue={this.props.pass} /></li>
-        <li><button onClick={this.testCredentials}>Test credentials</button></li>
+        <li><button onClick={this.testCredentials}>Login</button></li>
       </ul>
     )
   }
