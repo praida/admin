@@ -1,0 +1,12 @@
+.record .newField input {
+  background: #efe;
+}
+
+.record .oldField.edited input {
+  background: #ffe;
+}
+
+.record .oldField.deleted input,
+.record.deleted input {
+  background: #fee;
+}

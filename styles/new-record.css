@@ -1,9 +1,6 @@
-.newField input {
-  background: #080;
-}
-
-.oldField input {
-
+.newRecord .newField input,
+.newRecord .oldField input {
+  background: #efe;
 }
 
 .addNewRecordButton {

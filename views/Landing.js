@@ -11,82 +11,69 @@ import ActionBar from '../components/ActionBar'
 
 import '../styles/wrapper.css'
 
-class Landing extends React.Component {
-  componentDidUpdate () {
-    if (this.props.loggedIn
-      && !this.props.fieldsAt
-      && !this.props.gettingFields
-      && !this.props.getFieldsFailed
-      && !this.props.recordsAt
-      && !this.props.gettingRecords
-      && !this.props.getRecordsFailed
-    ) {
-      api.getFields(this.props.dispatch)
-      api.getRecords(this.props.dispatch)
-    }
-  }
-
-  render () {
-    return (
-      <div className="wrapper">
-        <Credentials
-          user={this.props.user}
-          pass={this.props.pass}
-        />
-        <div className="main">
-          {this.props.loggedIn && this.props.fieldsAt
-            ? (
-              <RecordBrowser
-                advancedSearch={this.props.advancedSearch}
-                fields={this.props.fields}
-                records={this.props.records}
-                recordsAt={this.props.recordsAt}
-                nbNewFields={this.props.nbNewFields}
-                newFields={this.props.newFields}
-                add={this.props.add}
-                edit={this.props.edit}
-                remove={this.props.remove}
-                reviewing={this.props.reviewing}
-              />
-            )
-            : null
-          }
-          {/*this.props.loggedIn
-            ? (
-              <Review
-                fields={this.props.fields}
-                nbNewFields={this.props.nbNewFields}
-                newFields={this.props.newFields}
-                add={this.props.add}
-                edit={this.props.edit}
-                remove={this.props.remove}
-                reviewing={this.props.reviewing}
-              />
-            )
-            : null
-          */}
-        </div>
-        {this.props.loggedIn
+const Landing = (props) => {
+  return (
+    <div className="wrapper">
+      <Credentials
+        user={props.user}
+        pass={props.pass}
+      />
+      <div className="main">
+        {props.loggedIn
           ? (
-            <ActionBar
-              nbNewFields={this.props.nbNewFields}
-              newFields={this.props.newFields}
-              editedFields={this.props.editedFields}
-              deletedFields={this.props.deletedFields}
-              add={this.props.add}
-              edit={this.props.edit}
-              remove={this.props.remove}
-              reviewing={this.props.reviewing}
+            <RecordBrowser
+              advancedSearch={props.advancedSearch}
+              fields={props.fields}
+              editedFields={props.editedFields}
+              newFields={props.newFields}
+              deletedFields={props.deletedFields}
+              records={props.records}
+              recordsAt={props.recordsAt}
+              ts={props.ts}
+              add={props.add}
+              edit={props.edit}
+              remove={props.remove}
+              reviewing={props.reviewing}
             />
           )
           : null
         }
+        {/*props.loggedIn
+          ? (
+            <Review
+              fields={props.fields}
+              newFields={props.newFields}
+              add={props.add}
+              edit={props.edit}
+              remove={props.remove}
+              reviewing={props.reviewing}
+            />
+          )
+          : null
+        */}
       </div>
-    )
-  }
+      {props.loggedIn
+        ? (
+          <ActionBar
+            newFields={props.newFields}
+            editedFields={props.editedFields}
+            deletedFields={props.deletedFields}
+            add={props.add}
+            edit={props.edit}
+            remove={props.remove}
+            reviewing={props.reviewing}
+          />
+        )
+        : null
+      }
+    </div>
+  )
 }
 
 const propsFromState = {
+  // Control
+  ts: PropTypes.number.isRequired,
+
   // View
   reviewing: PropTypes.bool.isRequired,
 
@@ -115,7 +102,6 @@ const propsFromState = {
   // Edits
 
   // - fields
-  nbNewFields: PropTypes.number.isRequired,
   newFields: PropTypes.array.isRequired,
   editedFields: PropTypes.object.isRequired,
   deletedFields: PropTypes.object.isRequired,

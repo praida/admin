@@ -20,12 +20,20 @@ module.exports = exports = {
     })
       .then((res) => {
         dispatch({ type: 'loggedIn', creds })
+        exports.pull(dispatch)
       }, (reason) => {
         dispatch({ type: 'loginFailed', creds, reason })
       })
       .then(() => {
         dispatch({ type: 'loggingIn', value: false })
       })
+  },
+
+  pull: (dispatch) => {
+    return Promise.all([
+      exports.getFields(dispatch),
+      exports.getRecords(dispatch)
+    ])
   },
 
   getFields: (dispatch) => {
@@ -76,7 +84,6 @@ module.exports = exports = {
     })
       .then(() => {
         dispatch({ type: 'savedChanges', creds })
-        dispatch({ type: 'undoAll' })
       }, (reason) => {
         dispatch({ type: 'saveChangesFailed', creds, reason })
       })

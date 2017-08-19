@@ -14,13 +14,15 @@ class RecordBrowser extends React.Component {
       <thead>
         {/* <SearchBar
           fields={this.props.fields}
-          nbNewFields={this.props.nbNewFields}
           newFields={this.props.newFields}
           advancedSearch={this.props.advancedSearch}
         /> */}
         <Headers
+          ts={this.props.ts}
           fields={this.props.fields}
-          nbNewFields={this.props.nbNewFields}
+          editedFields={this.props.editedFields}
+          newFields={this.props.newFields}
+          deletedFields={this.props.deletedFields}
         />
       </thead>
     )
@@ -30,13 +32,14 @@ class RecordBrowser extends React.Component {
         <SearchResults
           fields={this.props.fields}
           records={this.props.records}
-          nbNewFields={this.props.nbNewFields}
           newFields={this.props.newFields}
-          recordsAt={this.props.recordsAt}
+          deletedFields={this.props.deletedFields}
+          ts={this.props.ts}
+          edit={this.props.edit}
+          remove={this.props.remove}
         />
         <NewRecord
           fields={this.props.fields}
-          nbNewFields={this.props.nbNewFields}
           newFields={this.props.newFields}
           add={this.props.add}
         />
@@ -48,10 +51,12 @@ class RecordBrowser extends React.Component {
 RecordBrowser.propTypes = {
   records: PropTypes.array.isRequired,
   recordsAt: PropTypes.number.isRequired,
+  ts: PropTypes.number.isRequired,
   advancedSearch: PropTypes.bool.isRequired,
   fields: PropTypes.array.isRequired,
-  nbNewFields: PropTypes.number.isRequired,
+  editedFields: PropTypes.object.isRequired,
   newFields: PropTypes.array.isRequired,
+  deletedFields: PropTypes.object.isRequired,
   add: PropTypes.array.isRequired,
   edit: PropTypes.object.isRequired,
   remove: PropTypes.array.isRequired,

@@ -1,12 +1,16 @@
-.record-browser th input {
+.headers th input {
   font-weight: bold;
   text-align: center;
 }
 
-.newField input {
-  background: #080;
+.headers .newField input {
+  background: #efe;
 }
 
-.oldField input {
+.headers .oldField.edited input {
+  background: #ffe;
+}
 
+.headers .oldField.deleted input {
+  background: #fee;
 }

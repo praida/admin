@@ -63,7 +63,6 @@ class SearchBar extends React.Component {
 
 SearchBar.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  nbNewFields: PropTypes.number.isRequired,
   fields: PropTypes.array.isRequired,
   newFields: PropTypes.array.isRequired,
   advancedSearch: PropTypes.bool.isRequired

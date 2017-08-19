@@ -10,6 +10,7 @@ class Credentials extends React.Component {
   constructor (props) {
     super(props)
 
+    this.onKeyPress = this.onKeyPress.bind(this)
     this.userChanged = this.userChanged.bind(this)
     this.passChanged = this.passChanged.bind(this)
     this.testCredentials = this.testCredentials.bind(this)
@@ -41,11 +42,17 @@ class Credentials extends React.Component {
     return api.testCredentials(this.props.dispatch, creds)
   }
 
+  onKeyPress (event) {
+    if (event.charCode === 13) {
+      this.testCredentials()
+    }
+  }
+
   render () {
     return (
       <ul className="credentials">
-        <li><input type="text" placeholder="username" onChange={this.userChanged} defaultValue={this.props.user} /></li>
-        <li><input type="password" placeholder="password" onChange={this.passChanged} defaultValue={this.props.pass} /></li>
+        <li><input type="text" placeholder="username" onChange={this.userChanged} defaultValue={this.props.user} onKeyPress={this.onKeyPress} /></li>
+        <li><input type="password" placeholder="password" onChange={this.passChanged} defaultValue={this.props.pass} onKeyPress={this.onKeyPress} /></li>
         <li><button onClick={this.testCredentials}>Login</button></li>
       </ul>
     )
@@ -55,7 +62,7 @@ class Credentials extends React.Component {
 Credentials.propTypes = {
   dispatch: PropTypes.func.isRequired,
   user: PropTypes.string.isRequired,
-  pass: PropTypes.string.isRequired
+  pass: PropTypes.string.isRequired,
 }
 
 module.exports = exports = connect()(Credentials)

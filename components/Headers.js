@@ -10,20 +10,20 @@ class Headers extends React.Component {
   constructor (props) {
     super(props)
 
-    this.state = {
-      lastNbNewFields: this.props.nbNewFields
-    }
+    // this.state = {
+    //   lastNbNewFields: this.props.newFields.length
+    // }
 
     this.addCol = this.addCol.bind(this)
     this.changeOldField = this.changeOldField.bind(this)
     this.changeNewField = this.changeNewField.bind(this)
   }
-  componentDidUpdate () {
-    if (this.props.nbNewFields > this.state.lastNbNewFields) {
-      this.state.lastNewCol.focus()
-    }
-    this.state.lastNbNewFields = this.props.nbNewFields
-  }
+  // componentDidUpdate () {
+  //   if (this.props.newFields.length > this.state.lastNbNewFields) {
+  //     this.state.lastNewCol.focus()
+  //   }
+  //   this.state.lastNbNewFields = this.props.newFields.length
+  // }
   addCol () {
     this.props.dispatch({
       type: 'addCol'
@@ -49,41 +49,55 @@ class Headers extends React.Component {
   }
   render () {
     const nbFields = this.props.fields.length
-    const nbFieldsTotal = nbFields + this.props.nbNewFields
+    const nbFieldsTotal = nbFields + this.props.newFields.length
     const oldFields = this.props.fields.map((field, idx) => {
+      const classes = ['oldField', getColClassName(nbFieldsTotal, idx)]
+      let value = field.name
+      const edited = this.props.editedFields[field._id]
+      const deleted = this.props.deletedFields[field._id]
+      if (edited) {
+        value = edited.name
+        if (!deleted) {
+          classes.push('edited')
+        }
+      }
+      if (deleted) {
+        classes.push('deleted')
+      }
       return (
         <th
-          key={field._id}
-          className={`oldField ${getColClassName(nbFieldsTotal, idx)}`}
+          key={`${field._id}:${this.props.ts}`}
+          className={classes.join(' ')}
         >
           <input
             type="text"
-            defaultValue={field.name}
+            defaultValue={value}
             placeholder="Delete"
             onChange={this.changeOldField(field)}
           />
         </th>
       )
     })
-    const newFields = []
-    for (let i = 0; i < this.props.nbNewFields; i += 1) {
-      newFields.push(
+    const newFields = this.props.newFields.map((newField, idx) => {
+      const classes = ['newField', getColClassName(nbFieldsTotal, nbFields + idx)]
+      return (
         <th
-          key={`newField_${i}`}
-          className={`newField ${getColClassName(nbFieldsTotal, nbFields + i)}`}
+          key={`newField_${idx}`}
+          className={classes.join(' ')}
         >
           <input
             type="text"
-            onChange={this.changeNewField(i)}
-            ref={(element) => {
-              this.state.lastNewCol = element
-            }}
+            defaultValue={newField}
+            onChange={this.changeNewField(idx)}
+            // ref={(element) => {
+            //   this.state.lastNewCol = element
+            // }}
           />
         </th>
       )
-    }
+    })
     return (
-      <tr>
+      <tr className="headers">
         {oldFields}
         {newFields}
         <td className="action-col">
@@ -96,8 +110,11 @@ class Headers extends React.Component {
 
 Headers.propTypes = {
   dispatch: PropTypes.func.isRequired,
+  ts: PropTypes.number.isRequired,
   fields: PropTypes.array.isRequired,
-  nbNewFields: PropTypes.number.isRequired
+  editedFields: PropTypes.object.isRequired,
+  newFields: PropTypes.array.isRequired,
+  deletedFields: PropTypes.object.isRequired,
 }
 
 module.exports = exports = connect()(Headers)

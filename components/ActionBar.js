@@ -48,7 +48,6 @@ class ActionBar extends React.Component {
   reviewChanges () {
     this.props.dispatch({
       type: 'reviewChanges',
-      nbNewFields: this.props.nbNewFields,
       newFields: this.props.newFields,
       add: this.props.add,
       edit: this.props.edit,
@@ -66,11 +65,12 @@ class ActionBar extends React.Component {
 
   save () {
     const add = this.props.add.filter(item => !item.isDeleted)
+    const newFields = this.props.newFields.filter(item => item !== '')
     api.saveChanges(this.props.dispatch, {
       add: add,
       edit: this.props.edit,
       remove: this.props.remove,
-      newFields: this.props.newFields,
+      newFields,
       editedFields: this.props.editedFields,
       deletedFields: this.props.deletedFields,
     })

@@ -49,7 +49,7 @@ class NewRecord extends React.Component {
   }
   render () {
     const nbFields = this.props.fields.length
-    const nbFieldsTotal = nbFields + this.props.nbNewFields
+    const nbFieldsTotal = nbFields + this.props.newFields.length
     const makeOldFields = (rowNb) => {
       return this.props.fields.map((field, idx) => {
         return (
@@ -67,31 +67,32 @@ class NewRecord extends React.Component {
       })
     }
     const makeNewFields = (rowNb) => {
-      const newFields = []
-      for (let i = 0; i < this.props.nbNewFields; i += 1) {
-        newFields.push(
+      const newFields = this.props.newFields.map((newField, idx) => {
+        return (
           <td
-            key={`newField_${i}`}
-            className={`newField ${getColClassName(nbFieldsTotal, nbFields + i)}`}
+            key={`newField_${idx}`}
+            className={`newField ${getColClassName(nbFieldsTotal, nbFields + idx)}`}
           >
             <input
               type="text"
-              onChange={this.changeNewField(rowNb, i)}
+              defaultValue={this.props.add[rowNb] && this.props.add[rowNb].newFields && this.props.add[rowNb].newFields[idx]}
+              onChange={this.changeNewField(rowNb, idx)}
             />
           </td>
         )
-      }
+      });
       return newFields
     }
 
     const newRecords = this.props.add.map((item, idx) => {
+      const classes = ['newRecord', getColClassName(nbFieldsTotal, nbFields + idx)]
       if (item.isDeleted) {
-        return null
+        classes.push('isDeleted')
       }
       return (
         <tr
           key={`newRecord_${idx}`}
-          className={`newRecord ${getColClassName(nbFieldsTotal, nbFields + idx)}`}
+          className={classes.join(' ')}
         >
           {makeOldFields(idx)}
           {makeNewFields(idx)}
@@ -102,9 +103,9 @@ class NewRecord extends React.Component {
       )
     })
 
-    return (
-      <tbody>
-        {newRecords}
+    const recordAdder = nbFieldsTotal === 0
+      ? null
+      : (
         <tr>
           <td
             className="addNewRecordButton"
@@ -114,6 +115,12 @@ class NewRecord extends React.Component {
             ⊕
           </td>
         </tr>
+      )
+
+    return (
+      <tbody>
+        {newRecords}
+        {recordAdder}
       </tbody>
     )
   }
@@ -123,7 +130,6 @@ NewRecord.propTypes = {
   dispatch: PropTypes.func.isRequired,
   fields: PropTypes.array.isRequired,
   newFields: PropTypes.array.isRequired,
-  nbNewFields: PropTypes.number.isRequired,
   add: PropTypes.array.isRequired
 }
 

@@ -1,4 +1,9 @@
+const edits = require('./edits.js')
+
 const initialState = {
+  // Control
+  ts: 0,
+
   // View
   reviewing: false,
 
@@ -18,29 +23,27 @@ const initialState = {
   // Records
   gettingRecords: false,
   getRecordsFailed: false,
-  recordsAt: 0,
-  records: [],
 
   // Search
   advancedSearch: false,
 
   // Edit
-  nbNewFields: 0,
-  newFields: [],
-  editedFields: {},
-  deletedFields: {},
-  add: [],
-  edit: {},
-  remove: []
+  ...edits
 }
 
 // Check for stored credentials
 const credsStr = sessionStorage.getItem('creds')
 if (credsStr) {
   const creds = JSON.parse(credsStr)
-  console.log('Found stored creds', creds)
   initialState.user = creds.user
   initialState.pass = creds.pass
 }
+
+Object.keys(edits).forEach((itemName) => {
+  const item = localStorage.getItem(itemName)
+  if (item) {
+    initialState[itemName] = JSON.parse(item)
+  }
+})
 
 module.exports = exports = initialState

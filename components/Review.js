@@ -83,7 +83,6 @@ const Review = (props) => (
 
 Review.propTypes = {
   fields: PropTypes.array.isRequired,
-  nbNewFields: PropTypes.number.isRequired,
   newFields: PropTypes.array.isRequired,
   add: PropTypes.array.isRequired,
   edit: PropTypes.object.isRequired,

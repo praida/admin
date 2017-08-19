@@ -4,6 +4,8 @@ import { connect } from 'react-redux'
 
 import getColClassName from '../helpers/getColClassName'
 
+import '../styles/records.css'
+
 class SearchResults extends React.Component {
   constructor (props) {
     super(props)
@@ -42,52 +44,72 @@ class SearchResults extends React.Component {
   }
   render () {
     const nbFields = this.props.fields.length
-    const nbFieldsTotal = nbFields + this.props.nbNewFields
+    const nbFieldsTotal = nbFields + this.props.newFields.length
+    const records = this.props.records.map((record) => {
+      const oldFields = this.props.fields.map((field, idx) => {
+        const classes = ['oldField', getColClassName(nbFieldsTotal, idx)]
+        let value = record[field._id]
+        const edited = this.props.edit[record._id]
+          && this.props.edit[record._id][field._id]
+        const fieldDeleted = this.props.deletedFields[field._id]
+        if (edited) {
+          value = edited
+          if (!fieldDeleted) {
+            classes.push('edited')
+          }
+        }
+        if (fieldDeleted) {
+          classes.push('deleted')
+        }
+        return (
+          <td
+            key={`${field._id}:${this.props.ts}`}
+            className={classes.join(' ')}
+          >
+            <input
+              type="text"
+              defaultValue={value}
+              onChange={this.changeOldField(record, field)}
+            />
+          </td>
+        )
+      })
+      const newFields = this.props.newFields.map((newField, idx) => {
+        const classes = ['newField', getColClassName(nbFieldsTotal, nbFields + idx)]
+        let value = this.props.edit[record._id]
+          && this.props.edit[record._id].newFields
+          && this.props.edit[record._id].newFields[idx]
+        return (
+          <td
+            key={`newField_${idx}`}
+            className={classes.join(' ')}
+          >
+            <input
+              type="text"
+              defaultValue={value}
+              onChange={this.changeNewField(record, idx)}
+            />
+          </td>
+        )
+      })
+      const classes = ['record']
+      const deleted = this.props.remove.includes(record._id)
+      if (deleted) {
+        classes.push('deleted')
+      }
+      return (
+        <tr key={record._id} className={classes.join(' ')}>
+          {oldFields}
+          {newFields}
+          <td className="action-col">
+            <span className="action-icon" onClick={this.removeRow(record)}>⊗</span>
+          </td>
+        </tr>
+      )
+    })
     return (
       <tbody>
-        {this.props.records.map((record) => {
-          if (record.isDeleted) {
-            return null
-          }
-          const oldFields = this.props.fields.map((field, idx) => {
-            const value = record[field._id]
-            return (
-              <td
-                key={`${field._id}:${this.props.recordsAt}`}
-                className={`oldField ${getColClassName(nbFieldsTotal, idx)}`}
-              >
-                <input
-                  type="text"
-                  defaultValue={value}
-                  onChange={this.changeOldField(record, field)}
-                />
-              </td>
-            )
-          })
-          const newFields = []
-          for (let i = 0; i < this.props.nbNewFields; i += 1) {
-            newFields.push(
-              <td
-                key={`newField_${i}`}
-                className={`newField ${getColClassName(nbFieldsTotal, nbFields + i)}`}
-              >
-                <input
-                  type="text"
-                  onChange={this.changeNewField(record, i)}
-                />
-              </td>
-            )
-          }
-          return (
-            <tr key={record._id}>
-              {oldFields}
-              {newFields}
-              <td className="action-col">
-                <span className="action-icon" onClick={this.removeRow(record)}>⊗</span>
-              </td>
-            </tr>
-          )
-        })}
+        {records}
       </tbody>
     )
   }
@@ -96,8 +118,12 @@ class SearchResults extends React.Component {
 SearchResults.propTypes = {
   dispatch: PropTypes.func.isRequired,
   fields: PropTypes.array.isRequired,
+  newFields: PropTypes.array.isRequired,
+  deletedFields: PropTypes.object.isRequired,
   records: PropTypes.array.isRequired,
-  recordsAt: PropTypes.number.isRequired
+  ts: PropTypes.number.isRequired,
+  edit: PropTypes.object.isRequired,
+  remove: PropTypes.array.isRequired
 }
 
 module.exports = exports = connect()(SearchResults)
