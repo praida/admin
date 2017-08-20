@@ -25,5 +25,4 @@
 
 .addNewRecordButton:hover {
   background: var(--green);
-  color: darken(var(--green), var(--darken));
 }
