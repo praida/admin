@@ -31,6 +31,7 @@ const undoAll = (newState, bool) => {
 }
 
 const appReducer = (state = initialState, action) => {
+  console.log('action', action)
   const newState = cloneDeep(state)
 
   switch (action.type) {

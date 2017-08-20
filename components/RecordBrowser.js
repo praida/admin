@@ -41,6 +41,7 @@ class RecordBrowser extends React.Component {
         <NewRecord
           fields={this.props.fields}
           newFields={this.props.newFields}
+          deletedFields={this.props.deletedFields}
           add={this.props.add}
         />
       </table>

@@ -1,16 +1,22 @@
+@import './vars.css';
+
+.headers th {
+  color: var(--black);
+}
+
 .headers th input {
   font-weight: bold;
   text-align: center;
 }
 
 .headers .newField input {
-  background: #efe;
+  background: var(--green);
 }
 
 .headers .oldField.edited input {
-  background: #ffe;
+  background: var(--yellow);
 }
 
 .headers .oldField.deleted input {
-  background: #fee;
+  background: var(--red);
 }

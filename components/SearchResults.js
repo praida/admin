@@ -2,8 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
-import getColClassName from '../helpers/getColClassName'
-
 import '../styles/records.css'
 
 class SearchResults extends React.Component {
@@ -47,18 +45,18 @@ class SearchResults extends React.Component {
     const nbFieldsTotal = nbFields + this.props.newFields.length
     const records = this.props.records.map((record) => {
       const oldFields = this.props.fields.map((field, idx) => {
-        const classes = ['oldField', getColClassName(nbFieldsTotal, idx)]
+        const classes = ['oldField']
         let value = record[field._id]
         const edited = this.props.edit[record._id]
           && this.props.edit[record._id][field._id]
-        const fieldDeleted = this.props.deletedFields[field._id]
+        const deleted = this.props.deletedFields[field._id]
         if (edited) {
           value = edited
-          if (!fieldDeleted) {
+          if (!deleted) {
             classes.push('edited')
           }
         }
-        if (fieldDeleted) {
+        if (deleted) {
           classes.push('deleted')
         }
         return (
@@ -70,15 +68,20 @@ class SearchResults extends React.Component {
               type="text"
               defaultValue={value}
               onChange={this.changeOldField(record, field)}
+              disabled={deleted}
             />
           </td>
         )
       })
       const newFields = this.props.newFields.map((newField, idx) => {
-        const classes = ['newField', getColClassName(nbFieldsTotal, nbFields + idx)]
+        const classes = ['newField']
         let value = this.props.edit[record._id]
           && this.props.edit[record._id].newFields
           && this.props.edit[record._id].newFields[idx]
+        const disabled = newField === ''
+        if (disabled) {
+          classes.push('disabled')
+        }
         return (
           <td
             key={`newField_${idx}`}
@@ -88,6 +91,7 @@ class SearchResults extends React.Component {
               type="text"
               defaultValue={value}
               onChange={this.changeNewField(record, idx)}
+              disabled={disabled}
             />
           </td>
         )

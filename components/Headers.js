@@ -2,8 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
-import getColClassName from '../helpers/getColClassName'
-
 import '../styles/headers.css'
 
 class Headers extends React.Component {
@@ -51,7 +49,7 @@ class Headers extends React.Component {
     const nbFields = this.props.fields.length
     const nbFieldsTotal = nbFields + this.props.newFields.length
     const oldFields = this.props.fields.map((field, idx) => {
-      const classes = ['oldField', getColClassName(nbFieldsTotal, idx)]
+      const classes = ['oldField']
       let value = field.name
       const edited = this.props.editedFields[field._id]
       const deleted = this.props.deletedFields[field._id]
@@ -79,7 +77,7 @@ class Headers extends React.Component {
       )
     })
     const newFields = this.props.newFields.map((newField, idx) => {
-      const classes = ['newField', getColClassName(nbFieldsTotal, nbFields + idx)]
+      const classes = ['newField']
       return (
         <th
           key={`newField_${idx}`}

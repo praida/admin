@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import getColClassName from '../helpers/getColClassName'
 
 import '../styles/new-record.css'
 
@@ -52,15 +51,21 @@ class NewRecord extends React.Component {
     const nbFieldsTotal = nbFields + this.props.newFields.length
     const makeOldFields = (rowNb) => {
       return this.props.fields.map((field, idx) => {
+        const classes = ['oldField']
+        const deleted = this.props.deletedFields[field._id]
+        if (deleted) {
+          classes.push('fieldDeleted')
+        }
         return (
           <td
             key={field._id}
-            className={`oldField ${getColClassName(nbFieldsTotal, idx)}`}
+            className={classes.join(' ')}
           >
             <input
               type="text"
               defaultValue={this.props.add[rowNb][field._id]}
               onChange={this.changeOldField(rowNb, field)}
+              disabled={deleted}
             />
           </td>
         )
@@ -68,15 +73,21 @@ class NewRecord extends React.Component {
     }
     const makeNewFields = (rowNb) => {
       const newFields = this.props.newFields.map((newField, idx) => {
+        const classes = ['newField']
+        const disabled = newField === ''
+        if (disabled) {
+          classes.push('disabled')
+        }
         return (
           <td
             key={`newField_${idx}`}
-            className={`newField ${getColClassName(nbFieldsTotal, nbFields + idx)}`}
+            className={classes.join(' ')}
           >
             <input
               type="text"
               defaultValue={this.props.add[rowNb] && this.props.add[rowNb].newFields && this.props.add[rowNb].newFields[idx]}
               onChange={this.changeNewField(rowNb, idx)}
+              disabled={disabled}
             />
           </td>
         )
@@ -85,13 +96,13 @@ class NewRecord extends React.Component {
     }
 
     const newRecords = this.props.add.map((item, idx) => {
-      const classes = ['newRecord', getColClassName(nbFieldsTotal, nbFields + idx)]
+      const classes = ['newRecord']
       if (item.isDeleted) {
         classes.push('isDeleted')
       }
       return (
         <tr
-          key={`newRecord_${idx}`}
+          key={`newRecord_${idx}:${this.props.ts}`}
           className={classes.join(' ')}
         >
           {makeOldFields(idx)}
@@ -130,6 +141,7 @@ NewRecord.propTypes = {
   dispatch: PropTypes.func.isRequired,
   fields: PropTypes.array.isRequired,
   newFields: PropTypes.array.isRequired,
+  deletedFields: PropTypes.object.isRequired,
   add: PropTypes.array.isRequired
 }
 

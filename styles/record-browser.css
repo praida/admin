@@ -4,29 +4,24 @@
   width: 100%;
   margin: 0 0 var(--gutter);
 }
+
 .record-browser th input, .record-browser td input {
   width: 100%;
   padding: var(--padding);
 }
 
-/*.first-col, .mid-col, .last-col {
-  border-style: solid;
-  border-color: black;
-}*/
-/*.first-col {
-  border-width: 0 0 0 1px;
+.record-browser th, .record-browser td {
+  border: 1px solid var(--black);
+  min-width: 200px;
 }
-.mid-col {
-  border-width: 0 0 0 1px;
-}
-.last-col {
-  border-width: 0 1px 0 1px;
-}*/
-.action-col {
+
+.record-browser .action-col {
+  border-color: #fff;
   width: var(--gutter);
+  min-width: var(--gutter) !important;
   padding: 0.5em 0.7em;
 }
 
-.action-icon {
+.record-browser .action-icon {
   cursor: pointer;
 }

@@ -22,7 +22,7 @@ class ActionBar extends React.Component {
 
   undoAllButton () {
     return (
-      <li>
+      <li className="undoBtn">
         <button onClick={this.undoAll}>Undo</button>
       </li>
     )
@@ -84,7 +84,7 @@ class ActionBar extends React.Component {
 
   saveButton () {
     return (
-      <li>
+      <li className="saveBtn">
         <button onClick={this.save}>Save</button>
       </li>
     )

@@ -1,13 +1,29 @@
+@import './vars.css';
+
 .newRecord .newField input,
 .newRecord .oldField input {
-  background: #efe;
+  background: var(--green);
+}
+
+.newRecord .oldField.fieldDeleted input {
+  background: var(--red);
+}
+
+.newRecord .newField.fieldDeleted input {
+  background: var(--white);
+}
+
+.newRecord .newField.disabled input {
+  background: var(--white);
 }
 
 .addNewRecordButton {
+  padding: var(--padding);
   text-align: center;
   cursor: pointer;
 }
 
 .addNewRecordButton:hover {
-  background: #eee;
+  background: var(--green);
+  color: darken(var(--green), var(--darken));
 }
