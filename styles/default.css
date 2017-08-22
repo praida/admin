@@ -1,4 +1,5 @@
 @charset "UTF-8";
+@import './vars.css';
 
 *,
 *::before,
@@ -38,6 +39,32 @@ th, td {
   padding: 0;
 }
 
+input {
+  padding: var(--padding);
+}
+
 button {
   cursor: pointer;
+  padding: var(--padding);
+  font-weight: 700;
+}
+
+.primaryBtn {
+  color: var(--white);
+  background: var(--blue);
+}
+
+.primaryBtn:hover,
+.primaryBtn:focus {
+  background: var(--darkblue);
+}
+
+.destructiveBtn {
+  background: var(--orange);
+  color: var(--white);
+}
+
+.destructiveBtn:hover,
+.destructiveBtn:focus {
+  background: var(--darkorange);
 }

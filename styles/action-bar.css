@@ -15,26 +15,3 @@
   display: inline-block;
   margin: 0 var(--gutter);
 }
-.action-bar button {
-  padding: var(--padding);
-  font-weight: 700;
-  border: 0;
-}
-
-.action-bar .undoBtn button {
-  background: var(--orange);
-  color: var(--white);
-}
-
-.action-bar .undoBtn button:hover {
-  background: var(--darkorange);
-}
-
-.action-bar .saveBtn button {
-  color: var(--white);
-  background: var(--blue);
-}
-
-.action-bar .saveBtn button:hover {
-  background: var(--darkblue);
-}
