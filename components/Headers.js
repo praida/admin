@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
-import '../styles/headers.css'
+import '../styles/headers.scss'
 
 class Headers extends React.Component {
   constructor (props) {

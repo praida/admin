@@ -2,9 +2,11 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux';
 
-import api from '../api'
+import api from '../../api'
 
-import '../styles/action-bar.css'
+import Message from '../Message/'
+
+import './styles.scss'
 
 class ActionBar extends React.Component {
   constructor (props) {
@@ -13,6 +15,7 @@ class ActionBar extends React.Component {
     this.undoAll = this.undoAll.bind(this)
     this.reviewChanges = this.reviewChanges.bind(this)
     this.save = this.save.bind(this)
+    this.dismissError = this.dismissError.bind(this)
   }
   undoAll () {
     return this.props.dispatch({
@@ -22,9 +25,7 @@ class ActionBar extends React.Component {
 
   undoAllButton () {
     return (
-      <li className="undoBtn">
-        <button className="destructiveBtn" onClick={this.undoAll}>Undo</button>
-      </li>
+      <button className="btn undoBtn destructiveBtn" onClick={this.undoAll}>Undo</button>
     )
   }
 
@@ -34,14 +35,12 @@ class ActionBar extends React.Component {
     const less = this.props.remove.length
     const nbNewFields = this.props.newFields.length
     return (
-      <li className="diffSummary">
-        <ul>
-          {nbNewFields > 0 ? (<li>Creating {nbNewFields} new fields</li>) : null}
-          {more > 0 ? (<li>Adding {more} new records</li>) : null}
-          {diff > 0 ? (<li>Modifying {diff} records</li>) : null}
-          {less > 0 ? (<li>Deleting {less} records</li>) : null}
-        </ul>
-      </li>
+      <ul className="diffSummary">
+        {nbNewFields > 0 ? (<li>Creating {nbNewFields} new fields</li>) : null}
+        {more > 0 ? (<li>Adding {more} new records</li>) : null}
+        {diff > 0 ? (<li>Modifying {diff} records</li>) : null}
+        {less > 0 ? (<li>Deleting {less} records</li>) : null}
+      </ul>
     )
   }
 
@@ -57,9 +56,7 @@ class ActionBar extends React.Component {
 
   reviewChangesButton () {
     return (
-      <li>
-        <button onClick={this.reviewChanges}>Review Changes</button>
-      </li>
+      <button onClick={this.reviewChanges}>Review Changes</button>
     )
   }
 
@@ -84,11 +81,17 @@ class ActionBar extends React.Component {
 
   saveButton () {
     return (
-      <li className="saveBtn">
-        <button className="primaryBtn" onClick={this.save}>Save</button>
-      </li>
+      <button className="btn saveBtn primaryBtn" onClick={this.save}>Save</button>
     )
   }
+
+  dismissError () {
+    this.props.dispatch({
+      type: 'dismissSaveError'
+    })
+    return false
+  }
+
   render () {
     const dirty = this.props.add.length > 0
       || this.props.edit.length > 0
@@ -99,13 +102,19 @@ class ActionBar extends React.Component {
     if (dirty) {
       classes.push('dirty')
     }
+    const error = this.props.saveError
+      ? <Message className="messagePanel" level="error" onDismiss={this.dismissError}>
+          <p>{this.props.saveError}</p>
+        </Message>
+      : null
     return (
-      <ul className={classes.join(' ')}>
+      <div className={classes.join(' ')}>
         {this.undoAllButton()}
+        {error}
         {/*this.diffSummary()*/}
         {/*this.reviewChangesButton()*/}
         {this.saveButton()}
-      </ul>
+      </div>
     )
   }
 }
@@ -118,7 +127,8 @@ ActionBar.propTypes = {
   add: PropTypes.array.isRequired,
   edit: PropTypes.object.isRequired,
   remove: PropTypes.array.isRequired,
-  reviewing: PropTypes.bool.isRequired
+  reviewing: PropTypes.bool.isRequired,
+  saveError: PropTypes.object
 }
 
 module.exports = exports = connect()(ActionBar)

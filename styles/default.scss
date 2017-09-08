@@ -1,5 +1,5 @@
 @charset "UTF-8";
-@import './vars.css';
+@import './vars.scss';
 
 *,
 *::before,
@@ -40,31 +40,31 @@ th, td {
 }
 
 input {
-  padding: var(--padding);
+  padding: $unit;
 }
 
 button {
   cursor: pointer;
-  padding: var(--padding);
+  padding: $unit;
   font-weight: 700;
 }
 
 .primaryBtn {
-  color: var(--white);
-  background: var(--blue);
+  color: $white;
+  background: $blue;
 }
 
 .primaryBtn:hover,
 .primaryBtn:focus {
-  background: var(--darkblue);
+  background: $darkblue;
 }
 
 .destructiveBtn {
-  background: var(--orange);
-  color: var(--white);
+  background: $orange;
+  color: $white;
 }
 
 .destructiveBtn:hover,
 .destructiveBtn:focus {
-  background: var(--darkorange);
+  background: $darkorange;
 }

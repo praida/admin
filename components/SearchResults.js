@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
-import '../styles/records.css'
+import '../styles/records.scss'
 
 class SearchResults extends React.Component {
   constructor (props) {

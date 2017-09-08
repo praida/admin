@@ -1,0 +1,31 @@
+@import '../../styles/vars.scss';
+
+.message {
+  position: relative;
+  border: 1px solid $grey;
+  background: #eee;
+
+  &.message-level-error {
+    background: $red;
+  }
+
+  button.dismiss {
+    padding: $unit / 2;
+    font-size: $unit;
+    line-height: $unit;
+    width: 2 * $unit;
+    position: absolute;
+    right: 0;
+
+    border: 0;
+    background: transparent;
+    color: $darkred;
+
+    cursor: pointer;
+  }
+
+  p {
+    margin: 0;
+    padding: $unit / 2;
+  }
+}

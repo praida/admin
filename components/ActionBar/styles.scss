@@ -1,0 +1,31 @@
+@import '../../styles/vars.scss';
+
+$padding: $unit / 2;
+.action-bar {
+  position: fixed;
+  bottom: 0;
+  width: 100vw;
+  list-style: none;
+  padding: $padding;
+  margin: 0;
+  box-shadow: 0px -3px 2px 0px $black;
+  background: $black;
+  .undoBtn {
+    float: left;
+    margin-right: $unit;
+  }
+  .saveBtn {
+    float: right;
+    margin-left: $unit;
+  }
+  .messagePanel {
+    position: fixed;
+    background: $white;
+    padding: 0 $unit;
+    max-height: 50vh;
+    overflow: auto;
+    bottom: 5 * $unit;
+    left: 0;
+    width: 100vw;
+  }
+}

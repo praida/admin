@@ -4,19 +4,26 @@ import { connect } from 'react-redux'
 
 import api from '../api'
 
-import Credentials from '../components/Credentials'
-import RecordBrowser from '../components/RecordBrowser'
-import Review from '../components/Review'
-import ActionBar from '../components/ActionBar'
+import TopBar from '../components/TopBar/'
 
-import '../styles/wrapper.css'
+import Auth from '../components/Auth/'
+import RecordBrowser from '../components/RecordBrowser/'
+import Review from '../components/Review'
+import ActionBar from '../components/ActionBar/'
+
+import '../styles/wrapper.scss'
+import './styles.scss'
 
 const Landing = (props) => {
   return (
     <div className="wrapper">
-      <Credentials
+      <TopBar />
+      <Auth
         user={props.user}
         pass={props.pass}
+        loggingIn={props.loggingIn}
+        loginError={props.loginError}
+        loggedIn={props.loggedIn}
       />
       <div className="main">
         {props.loggedIn
@@ -34,6 +41,8 @@ const Landing = (props) => {
               edit={props.edit}
               remove={props.remove}
               reviewing={props.reviewing}
+              getFieldsError={props.getFieldsError}
+              getRecordsError={props.getRecordsError}
             />
           )
           : null
@@ -62,6 +71,7 @@ const Landing = (props) => {
             edit={props.edit}
             remove={props.remove}
             reviewing={props.reviewing}
+            saveError={props.saveError}
           />
         )
         : null
@@ -82,17 +92,20 @@ const propsFromState = {
   pass: PropTypes.string.isRequired,
   loggingIn: PropTypes.bool.isRequired,
   loggedIn: PropTypes.bool.isRequired,
-  logginFailed: PropTypes.bool.isRequired,
+  loginFailed: PropTypes.bool.isRequired,
+  loginError: PropTypes.number,
 
   // Fields
   gettingFields: PropTypes.bool.isRequired,
   getFieldsFailed: PropTypes.bool.isRequired,
+  getFieldsError: PropTypes.object,
   fieldsAt: PropTypes.number.isRequired,
   fields: PropTypes.array.isRequired,
 
   // Records
   gettingRecords: PropTypes.bool.isRequired,
   getRecordsFailed: PropTypes.bool.isRequired,
+  getRecordsError: PropTypes.object,
   recordsAt: PropTypes.number.isRequired,
   records: PropTypes.array.isRequired,
 
@@ -109,7 +122,10 @@ const propsFromState = {
   // - records
   add: PropTypes.array.isRequired,
   edit: PropTypes.object.isRequired,
-  remove: PropTypes.array.isRequired
+  remove: PropTypes.array.isRequired,
+
+  // Save
+  saveError: PropTypes.object,
 }
 
 Landing.propTypes = {

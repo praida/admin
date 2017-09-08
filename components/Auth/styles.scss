@@ -1,0 +1,59 @@
+@import '../../styles/vars.scss';
+
+$border-color: $grey;
+$height: 20 * $unit;
+
+.auth {
+  z-index: 0;
+  position: fixed;
+  left: 0;
+  right: 0;
+  margin: 2 * $unit auto;
+  border: 1px solid $border-color;
+  border-radius: $radius;
+  max-width: 640px - (2 * $unit);
+  font-size: $unit;
+  line-height: $unit;
+
+  &.loggedIn {
+    top: -$height;
+  }
+
+  header {
+    padding: $unit / 2 $unit;
+
+    border-bottom: 1px solid $border-color;
+    background: $white;
+
+    font-weight: 700;
+
+    border-radius: $radius $radius 0 0;
+  }
+
+  fieldset {
+    margin: 0;
+    border: 0;
+    padding: $unit $unit 0 $unit;
+    label {
+      display: block;
+      padding: $unit / 2 0;
+
+      font-weight: 700;
+
+      &:after {
+        content: ':';
+      }
+    }
+
+    input,
+    button {
+      padding: $unit / 2 $unit / 2;
+    }
+    input,
+    button,
+    .message {
+      width: 100%;
+      margin-bottom: $unit;
+    }
+  }
+}

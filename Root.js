@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { IntlProvider } from 'react-intl';
 import { Provider } from 'react-redux';
-import './styles/normalize.css';
-import './styles/default.css';
-import './styles/layout.css';
+import './styles/normalize.scss';
+import './styles/default.scss';
+import './styles/layout.scss';
 
 import Routes from './Routes';
 

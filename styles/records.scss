@@ -1,19 +1,19 @@
-@import './vars.css';
+@import './vars.scss';
 
 .record .newField input {
-  background: var(--green);
+  background: $green;
 }
 
 .record .oldField.edited input {
-  background: var(--yellow);
+  background: $yellow;
 }
 
 .record .oldField.deleted input,
 .record.deleted input {
-  background: var(--red);
+  background: $red;
   text-decoration: line-through;
 }
 
 .record .newField.disabled input {
-  background: var(--white);
+  background: $white;
 }

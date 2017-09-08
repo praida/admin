@@ -4,12 +4,12 @@
   "description": "Administration console for Praïda record keeping",
   "main": "index.js",
   "scripts": {
-    "lintCss": "stylelint ./styles/**/*.css",
+    "lintCss": "stylelint ./styles/**/*.scss",
     "lintJs": "eslint .",
     "start": "PRAIDA_API_URL=http://localhost:3333 webpack-dev-server --config ./webpack.config.js --open",
     "dev": "PRAIDA_API_URL=http://localhost:3333 webpack-dev-server --config ./webpack.config.js --open",
-    "remote": "PRAIDA_API_URL=https://backend-btkyvqplsp.now.sh webpack-dev-server --config ./webpack.config.js --open",
-    "build": "NODE_ENV=production PRAIDA_API_URL=https://backend-btkyvqplsp.now.sh webpack --config ./webpack.config.js --progress --profile --colors",
+    "remote": "PRAIDA_API_URL=https://backend-btzxpyhmok.now.sh webpack-dev-server --config ./webpack.config.js --open",
+    "build": "NODE_ENV=production PRAIDA_API_URL=https://backend-btzxpyhmok.now.sh webpack --config ./webpack.config.js --progress --profile --colors",
     "deploy": "git subtree push --prefix dist origin gh-pages",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -47,14 +47,15 @@
     "eslint-plugin-jsx-a11y": "5.1.1",
     "eslint-plugin-react": "7.1.0",
     "html-webpack-plugin": "2.29.0",
+    "node-sass": "^4.5.3",
     "postcss-cssnext": "^3.0.0",
     "postcss-import": "^10.0.0",
     "postcss-loader": "^2.0.6",
     "rimraf": "2.6.1",
-    "sass-loader": "6.0.6",
+    "sass-loader": "^6.0.6",
     "standard": "^10.0.3",
     "stylelint": "7.12.0",
-    "webpack": "3.0.0",
+    "webpack": "^3.0.0",
     "webpack-dev-server": "2.5.0"
   },
   "dependencies": {

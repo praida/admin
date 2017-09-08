@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
-import '../styles/new-record.css'
+import '../styles/new-record.scss'
 
 class NewRecord extends React.Component {
   constructor (props) {

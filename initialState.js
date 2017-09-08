@@ -12,23 +12,29 @@ const initialState = {
   pass: '',
   loggingIn: false,
   loggedIn: false,
-  logginFailed: false,
+  loginFailed: false,
+  loginError: 0,
 
   // Fields
   gettingFields: false,
   getFieldsFailed: false,
+  getFieldsError: null,
   fieldsAt: 0,
   fields: [],
 
   // Records
   gettingRecords: false,
   getRecordsFailed: false,
+  getRecordsError: null,
 
   // Search
   advancedSearch: false,
 
   // Edit
-  ...edits
+  ...edits,
+
+  // Save
+  saveError: null
 }
 
 // Check for stored credentials

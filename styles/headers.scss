@@ -1,7 +1,7 @@
-@import './vars.css';
+@import './vars.scss';
 
 .headers th {
-  color: var(--black);
+  color: $black;
 }
 
 .headers th input {
@@ -10,13 +10,13 @@
 }
 
 .headers .newField input {
-  background: var(--green);
+  background: $green;
 }
 
 .headers .oldField.edited input {
-  background: var(--yellow);
+  background: $yellow;
 }
 
 .headers .oldField.deleted input {
-  background: var(--red);
+  background: $red;
 }

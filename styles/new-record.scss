@@ -1,28 +1,28 @@
-@import './vars.css';
+@import './vars.scss';
 
 .newRecord .newField input,
 .newRecord .oldField input {
-  background: var(--green);
+  background: $green;
 }
 
 .newRecord .oldField.fieldDeleted input {
-  background: var(--red);
+  background: $red;
 }
 
 .newRecord .newField.fieldDeleted input {
-  background: var(--white);
+  background: $white;
 }
 
 .newRecord .newField.disabled input {
-  background: var(--white);
+  background: $white;
 }
 
 .addNewRecordButton {
-  padding: var(--padding);
+  padding: $unit;
   text-align: center;
   cursor: pointer;
 }
 
 .addNewRecordButton:hover {
-  background: var(--green);
+  background: $green;
 }

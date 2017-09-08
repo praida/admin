@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux';
 
-import '../styles/search-bar.css'
+import '../styles/search-bar.scss'
 
 class SearchBar extends React.Component {
   constructor (props) {

@@ -21,8 +21,8 @@ module.exports = exports = {
       .then((res) => {
         dispatch({ type: 'loggedIn', creds })
         exports.pull(dispatch)
-      }, (reason) => {
-        dispatch({ type: 'loginFailed', creds, reason })
+      }, (error) => {
+        dispatch({ type: 'loginFailed', creds, error })
       })
       .then(() => {
         dispatch({ type: 'loggingIn', value: false })
@@ -46,8 +46,8 @@ module.exports = exports = {
     })
       .then((fields) => {
         dispatch({ type: 'gotFields', creds, fields })
-      }, (reason) => {
-        dispatch({ type: 'getFieldsFailure', creds, reason })
+      }, (error) => {
+        dispatch({ type: 'getFieldsFailure', creds, error })
       })
       .then(() => {
         dispatch({ type: 'gettingFields', value: false })
@@ -64,8 +64,8 @@ module.exports = exports = {
     })
       .then((records) => {
         dispatch({ type: 'gotRecords', creds, records })
-      }, (reason) => {
-        dispatch({ type: 'getRecordsFailure', creds, reason })
+      }, (error) => {
+        dispatch({ type: 'getRecordsFailure', creds, error })
       })
       .then(() => {
         dispatch({ type: 'gettingRecords', value: false })
@@ -84,8 +84,8 @@ module.exports = exports = {
     })
       .then(() => {
         dispatch({ type: 'savedChanges', creds })
-      }, (reason) => {
-        dispatch({ type: 'saveChangesFailed', creds, reason })
+      }, (error) => {
+        dispatch({ type: 'saveChangesFailed', creds, error })
       })
       .then(() => {
         dispatch({ type: 'savingChanges', value: false })

@@ -1,0 +1,13 @@
+@import './vars.scss';
+
+.main {
+  width: 100vw;
+  overflow: auto;
+  padding-left: $unit;
+}
+
+@media only screen and (min-width: $big) {
+  .main {
+    padding-left: $gutter;
+  }
+}

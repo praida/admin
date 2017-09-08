@@ -1,0 +1,27 @@
+@import '../../styles/vars.scss';
+
+.record-browser table {
+  width: 100%;
+  margin: 0 0 $gutter;
+}
+
+.record-browser table th input, .record-browser table td input {
+  width: 100%;
+  padding: $unit;
+}
+
+.record-browser table th, .record-browser table td {
+  border: 1px solid $black;
+  min-width: 200px;
+}
+
+.record-browser table .action-col {
+  border-color: #fff;
+  width: $gutter;
+  min-width: $gutter !important;
+  padding: 0.5em 0.7em;
+}
+
+.record-browser table .action-icon {
+  cursor: pointer;
+}

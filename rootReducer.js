@@ -54,10 +54,16 @@ const appReducer = (state = initialState, action) => {
     case 'loggedIn':
       global.sessionStorage.setItem('creds', JSON.stringify(action.creds))
       newState.loggedIn = true
+      newState.loginError = initialState.loginError
       break
     case 'loginFailed':
       global.sessionStorage.removeItem('creds')
       newState.loggedIn = false
+      if (action.error.response) {
+        newState.loginError = action.error.response.status
+      } else {
+        newState.loginError = 5
+      }
       break
 
     // Fields
@@ -68,12 +74,14 @@ const appReducer = (state = initialState, action) => {
       newState.ts = Date.now()
       newState.gettingFields = false
       newState.getFieldsFailed = false
+      newState.getFieldsError = initialState.getFieldsError
       newState.fieldsAt = Date.now()
       newState.fields = action.fields.data
       break
     case 'getFieldsFailure':
       newState.gettingFields = false
       newState.getFieldsFailed = true
+      newState.getFieldsError = action.error
       break;
 
     // Records
@@ -84,6 +92,7 @@ const appReducer = (state = initialState, action) => {
       newState.ts = Date.now()
       newState.gettingRecords = false
       newState.getRecordsFailed = false
+      newState.getRecordsError = initialState.getRecordsError
       newState.recordsAt = Date.now()
       localStorage.setItem('recordsAt', JSON.stringify(newState.recordsAt))
       newState.records = action.records.data
@@ -92,6 +101,7 @@ const appReducer = (state = initialState, action) => {
     case 'getRecordsFailure':
       newState.gettingRecords = false
       newState.getRecordsFailed = true
+      newState.getRecordsError = action.error
       break
 
     // Search
@@ -194,10 +204,21 @@ const appReducer = (state = initialState, action) => {
       break
     case 'savedChanges':
       undoAll(newState)
+      newState.saveError = initialState.saveError
+      break
+    case 'saveChangesFailed':
+      newState.saveError = action.error
+      break
+    case 'dismissSaveError':
+      newState.saveError = initialState.saveError
+      break
+    case 'dismissLoginError':
+      newState.loginError = initialState.loginError
       break
     default:
       break
   }
+  global.state = newState
   return newState;
 };
 
