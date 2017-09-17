@@ -120,7 +120,7 @@ const appReducer = (state = initialState, action) => {
       localStorage.setItem('remove', JSON.stringify(newState.remove))
       break
     case 'removeNewRow':
-      newState.add[action.idx].isDeleted = true
+      newState.add.splice(action.idx, 1)
       localStorage.setItem('add', JSON.stringify(newState.add))
       break
     case 'changeNewField':

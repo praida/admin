@@ -1,20 +1,22 @@
 @import './vars.scss';
 
-.newRecord .newField input,
-.newRecord .oldField input {
-  background: $green;
-}
+.newRecord {
+  .newField input,
+  .oldField input {
+    background: $green;
+  }
 
-.newRecord .oldField.fieldDeleted input {
-  background: $red;
-}
+  .oldField.fieldDeleted input {
+    background: $red;
+  }
 
-.newRecord .newField.fieldDeleted input {
-  background: $white;
-}
+  .newField.fieldDeleted input {
+    background: $white;
+  }
 
-.newRecord .newField.disabled input {
-  background: $white;
+  .newField.disabled input {
+    background: $white;
+  }
 }
 
 .addNewRecordButton {

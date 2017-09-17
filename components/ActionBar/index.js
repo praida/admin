@@ -94,8 +94,11 @@ class ActionBar extends React.Component {
 
   render () {
     const dirty = this.props.add.length > 0
-      || this.props.edit.length > 0
+      || Object.keys(this.props.edit).length > 0
       || this.props.remove.length > 0
+      || this.props.newFields.length > 0
+      || Object.keys(this.props.editedFields).length > 0
+      || Object.keys(this.props.deletedFields).length > 0
     const classes = [
       'action-bar'
     ]

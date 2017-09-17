@@ -50,6 +50,7 @@ class Auth extends React.Component {
     if (event.charCode === 13) {
       this.testCredentials()
     }
+    return false
   }
 
   dismissLoginError () {
