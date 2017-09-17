@@ -1,3 +1,4 @@
+const pkg = require('./package.json')
 const edits = require('./edits.js')
 
 const initialState = {
@@ -6,6 +7,10 @@ const initialState = {
 
   // View
   reviewing: false,
+
+  // Menu
+  appVersion: pkg.version,
+  menuHidden: false,
 
   // Authorization
   user: '',

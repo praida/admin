@@ -40,6 +40,11 @@ const appReducer = (state = initialState, action) => {
       newState.reviewing = true
       break
 
+    // Menu
+    case 'toggleMenu':
+      newState.menuHidden = !state.menuHidden
+      break
+
     // Autorization
     case 'userChanged':
       newState.user = action.user
@@ -64,6 +69,10 @@ const appReducer = (state = initialState, action) => {
       } else {
         newState.loginError = 5
       }
+      break
+    case 'logout':
+      global.sessionStorage.removeItem('creds')
+      newState.loggedIn = false
       break
 
     // Fields

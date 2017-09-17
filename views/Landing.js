@@ -6,6 +6,7 @@ import api from '../api'
 
 import TopBar from '../components/TopBar/'
 
+import Menu from '../components/Menu/'
 import Auth from '../components/Auth/'
 import RecordBrowser from '../components/RecordBrowser/'
 import Review from '../components/Review'
@@ -18,6 +19,11 @@ const Landing = (props) => {
   return (
     <div className="wrapper">
       <TopBar />
+      <Menu
+        hidden={props.menuHidden}
+        loggedIn={props.loggedIn}
+        appVersion={props.appVersion}
+      />
       <Auth
         user={props.user}
         pass={props.pass}
@@ -86,6 +92,10 @@ const propsFromState = {
 
   // View
   reviewing: PropTypes.bool.isRequired,
+
+  // Menu
+  appVersion: PropTypes.string.isRequired,
+  menuHidden: PropTypes.bool.isRequired,
 
   // Authorization
   user: PropTypes.string.isRequired,
