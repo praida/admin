@@ -30,12 +30,17 @@ const Landing = (props) => {
         loggingIn={props.loggingIn}
         loginError={props.loginError}
         loggedIn={props.loggedIn}
+
+        searchQuery={props.searchQuery}
+        searchFilters={props.searchFilters}
       />
       <div className="main">
         {props.loggedIn
           ? (
             <RecordBrowser
               advancedSearch={props.advancedSearch}
+              searchQuery={props.searchQuery}
+              searchFilters={props.searchFilters}
               fields={props.fields}
               editedFields={props.editedFields}
               newFields={props.newFields}
@@ -121,6 +126,8 @@ const propsFromState = {
 
   // Search
   advancedSearch: PropTypes.bool.isRequired,
+  searchQuery: PropTypes.string.isRequired,
+  searchFilters: PropTypes.object.isRequired,
 
   // Edits
 

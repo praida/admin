@@ -6,5 +6,8 @@ module.exports = exports = {
   deletedFields: {},
   add: [],
   edit: {},
-  remove: []
+  remove: [],
+
+  searchQuery: '',
+  searchFilters: {}
 }

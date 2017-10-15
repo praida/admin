@@ -8,8 +8,8 @@
     "lintJs": "eslint .",
     "start": "PRAIDA_API_URL=http://localhost:3333 webpack-dev-server --config ./webpack.config.js --open",
     "dev": "PRAIDA_API_URL=http://localhost:3333 webpack-dev-server --config ./webpack.config.js --open",
-    "remote": "PRAIDA_API_URL=https://backend-btzxpyhmok.now.sh webpack-dev-server --config ./webpack.config.js --open",
-    "build": "NODE_ENV=production PRAIDA_API_URL=https://backend-btzxpyhmok.now.sh webpack --config ./webpack.config.js --progress --profile --colors",
+    "remote": "PRAIDA_API_URL=https://backend-asksduzeew.now.sh webpack-dev-server --config ./webpack.config.js --open",
+    "build": "NODE_ENV=production PRAIDA_API_URL=https://backend-asksduzeew.now.sh webpack --config ./webpack.config.js --progress --profile --colors",
     "deploy": "git subtree push --prefix dist origin gh-pages",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -65,6 +65,7 @@
     "lodash.clonedeep": "^4.5.0",
     "lodash.get": "^4.4.2",
     "prop-types": "15.5.10",
+    "qs": "^6.5.1",
     "react": "15.6.1",
     "react-dom": "15.6.1",
     "react-intl": "2.3.0",

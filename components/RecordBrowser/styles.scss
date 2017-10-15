@@ -5,7 +5,8 @@
   margin: 0 0 $gutter;
 }
 
-.record-browser table th input, .record-browser table td input {
+.record-browser table th input[type=text],
+.record-browser table td input[type=text] {
   width: 100%;
   padding: $unit;
 }

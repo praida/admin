@@ -10,7 +10,7 @@ const initialState = {
 
   // Menu
   appVersion: pkg.version,
-  menuHidden: false,
+  menuHidden: true,
 
   // Authorization
   user: '',

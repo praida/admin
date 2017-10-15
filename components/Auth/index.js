@@ -42,7 +42,7 @@ class Auth extends React.Component {
       user: this.props.user,
       pass: this.props.pass
     }
-    api.testCredentials(this.props.dispatch, creds)
+    api.testCredentials(this.props.dispatch, creds, this.props.searchQuery, this.props.searchFilters)
     return false
   }
 
@@ -111,6 +111,9 @@ Auth.propTypes = {
   loggingIn: PropTypes.bool.isRequired,
   loginErr: PropTypes.number,
   loggedIn: PropTypes.bool.isRequired,
+
+  searchQuery: PropTypes.string.isRequired,
+  searchFilters: PropTypes.object.isRequired,
 }
 
 module.exports = exports = connect()(Auth)

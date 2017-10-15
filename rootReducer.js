@@ -117,6 +117,14 @@ const appReducer = (state = initialState, action) => {
     case 'setAdvancedSearch':
       newState.advancedSearch = action.value
       break
+    case 'searchChanged':
+      newState.searchQuery = action.value
+      localStorage.setItem('searchQuery', JSON.stringify(newState.searchQuery))
+      break
+    case 'searchFilterChanged':
+      newState.searchFilters[action.field] = action.value
+      localStorage.setItem('searchFilters', JSON.stringify(newState.searchFilters))
+      break
 
     // Edit
     case 'addCol':

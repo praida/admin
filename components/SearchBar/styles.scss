@@ -1,0 +1,14 @@
+@import '../../styles/vars.scss';
+
+.search-bar input[type=text] {
+  width: 100%;
+  padding: $unit;
+}
+
+.advancedSearchLabel {
+  cursor: pointer;
+  input {
+    cursor: pointer;
+    margin-right: $unit;
+  }
+}

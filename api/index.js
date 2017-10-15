@@ -1,7 +1,8 @@
 import axios from 'axios'
+import qs from 'qs'
 
-const url = (route) => {
-  return `${process.env.API_URL}/${route}`
+const url = (route, query) => {
+  return `${process.env.API_URL}/${route}?${qs.stringify(query)}`
 }
 
 const auth = (creds) => {
@@ -12,7 +13,7 @@ const auth = (creds) => {
 }
 
 module.exports = exports = {
-  testCredentials: (dispatch, creds) => {
+  testCredentials: (dispatch, creds, searchQuery, searchFilters) => {
     dispatch({ type: 'loggingIn', value: true })
     return axios({
       url: url('testCredentials'),
@@ -20,7 +21,7 @@ module.exports = exports = {
     })
       .then((res) => {
         dispatch({ type: 'loggedIn', creds })
-        exports.pull(dispatch)
+        exports.pull(dispatch, searchQuery, searchFilters)
       }, (error) => {
         dispatch({ type: 'loginFailed', creds, error })
       })
@@ -29,10 +30,10 @@ module.exports = exports = {
       })
   },
 
-  pull: (dispatch) => {
+  pull: (dispatch, searchQuery, searchFilters) => {
     return Promise.all([
       exports.getFields(dispatch),
-      exports.getRecords(dispatch)
+      exports.getRecords(dispatch, searchQuery, searchFilters)
     ])
   },
 
@@ -54,12 +55,29 @@ module.exports = exports = {
       })
   },
 
-  getRecords: (dispatch) => {
+  getRecords: (dispatch, searchQuery, searchFilters) => {
     const credsStr = sessionStorage.getItem('creds')
     const creds = JSON.parse(credsStr)
     dispatch({ type: 'gettingRecords', value: true })
+    const query = {}
+    if (searchQuery !== '') {
+      query.q = searchQuery
+    }
+    let atLeastOne
+    if (searchFilters) {
+      const filters = Object.keys(searchFilters).reduce((acc, key) => {
+        if (searchFilters[key] !== '') {
+          atLeastOne = true
+          acc[key] = searchFilters[key]
+        }
+        return acc
+      }, {})
+      if (atLeastOne) {
+        query.f = filters
+      }
+    }
     return axios({
-      url: url('getRecords'),
+      url: url('getRecords', query),
       auth: auth(creds)
     })
       .then((records) => {

@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import SearchBar from '../SearchBar'
+import SearchBar from '../SearchBar/'
 import Headers from '../Headers'
 import SearchResults from '../SearchResults'
 import NewRecord from '../NewRecord'
@@ -15,11 +15,13 @@ class RecordBrowser extends React.Component {
       : null
     const head = (
       <thead>
-        {/* <SearchBar
+        <SearchBar
           fields={this.props.fields}
           newFields={this.props.newFields}
           advancedSearch={this.props.advancedSearch}
-        /> */}
+          searchQuery={this.props.searchQuery}
+          searchFilters={this.props.searchFilters}
+        />
         <Headers
           ts={this.props.ts}
           fields={this.props.fields}
@@ -59,7 +61,11 @@ RecordBrowser.propTypes = {
   records: PropTypes.array.isRequired,
   recordsAt: PropTypes.number.isRequired,
   ts: PropTypes.number.isRequired,
+
   advancedSearch: PropTypes.bool.isRequired,
+  searchQuery: PropTypes.string.isRequired,
+  searchFilters: PropTypes.object.isRequired,
+
   fields: PropTypes.array.isRequired,
   editedFields: PropTypes.object.isRequired,
   newFields: PropTypes.array.isRequired,
