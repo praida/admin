@@ -24,7 +24,7 @@ class TopBar extends React.Component {
             </path>
           </svg>
         </button>
-        PRAIDA
+        PRAIDA Admin
       </header>
     )
   }

@@ -4,7 +4,9 @@ import { connect } from 'react-redux'
 
 import api from '../../api'
 
-import Message from '../Message/'
+import Message from 'praida-message/'
+
+import '../../styles/message.scss'
 
 import './styles.scss'
 

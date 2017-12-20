@@ -1,6 +1,6 @@
 import React from 'react';
 import { HashRouter as Router, Route, Switch } from 'react-router-dom';
-import Err404 from './components/Err404';
+import Err404 from 'err404';
 import Landing from './views/Landing';
 
 const Routes = () => (

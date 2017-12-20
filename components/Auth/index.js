@@ -4,7 +4,9 @@ import { connect } from 'react-redux'
 
 import api from '../../api/'
 
-import Message from '../Message/'
+import Form from '../../../praida/components/Form'
+import FormField from '../../../praida/components/FormField'
+import Message from 'praida-message'
 
 import './styles.scss'
 
@@ -85,21 +87,36 @@ class Auth extends React.Component {
     if (this.props.loggedIn) {
       classes.push('loggedIn')
     }
+    const actions = [{
+      label: 'Login',
+      handler: this.testCredentials,
+      className: 'primaryBtn'
+    }]
     return (
-      <form className={classes.join(' ')}>
-        <header>Sign in to PRAIDA</header>
+      <Form
+        className={classes.join(' ')}
+        header="Sign in to PRAIDA"
+        actions={actions}
+      >
+        <FormField
+          id="username"
+          type="text"
+          label="Username"
+          onChange={this.userChanged}
+          defaultValue={this.props.user}
+          onKeyPress={this.onKeyPress}
+        />
 
-        <fieldset>
-          <label htmlFor="username">Username</label>
-          <input type="text" onChange={this.userChanged} defaultValue={this.props.user} onKeyPress={this.onKeyPress} />
-
-          <label htmlFor="password">Password</label>
-          <input type="password" onChange={this.passChanged} defaultValue={this.props.pass} onKeyPress={this.onKeyPress} />
-
-          <button className="primaryBtn" onClick={this.testCredentials}>Login</button>
-          {error}
-        </fieldset>
-      </form>
+        <FormField
+          id="password"
+          type="password"
+          label="Password"
+          onChange={this.passChanged}
+          defaultValue={this.props.pass}
+          onKeyPress={this.onKeyPress}
+        />
+        {error}
+      </Form>
     )
   }
 }
