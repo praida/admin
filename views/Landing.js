@@ -2,8 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
-import api from '../api'
-
 import TopBar from '../components/TopBar/'
 
 import Menu from '../components/Menu/'
@@ -142,7 +140,7 @@ const propsFromState = {
   remove: PropTypes.array.isRequired,
 
   // Save
-  saveError: PropTypes.object,
+  saveError: PropTypes.object
 }
 
 Landing.propTypes = {

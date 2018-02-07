@@ -91,7 +91,7 @@ const appReducer = (state = initialState, action) => {
       newState.gettingFields = false
       newState.getFieldsFailed = true
       newState.getFieldsError = action.error
-      break;
+      break
 
     // Records
     case 'gettingRecords':
